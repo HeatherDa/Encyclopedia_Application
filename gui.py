@@ -1,4 +1,6 @@
 from tkinter import *
+import tkinter
+from tkinter import messagebox
 
 
 class GUI:
@@ -28,7 +30,7 @@ class GUI:
         # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
         self.searchButton = Button(self.searchFrame, text ="Search:",
-                                           command = runSearch)
+                                           command = self.runSearch)
         self.searchTextbox = Entry(self.searchFrame, width=int(windowWidth / 9.6))
         self.searchButton.pack(side="left")
         self.searchTextbox.pack(side="left")
@@ -37,9 +39,16 @@ class GUI:
         # Keeps window active.
         mainloop()
 
+    def runSearch(self):
 
-def runSearch():
-    print("searching...")
+        #verify only letters
+        search_word = "".join(self.searchTextbox.get().split())
+        if search_word.isalpha():
+            print("valid")
+        else:
+            tkinter.messagebox.showinfo("Error", "Please type only letters")
+            self.searchTextbox.delete(0, "end")
+
 
 
 
