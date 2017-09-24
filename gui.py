@@ -3,17 +3,18 @@ import tkinter
 
 class GUI:
     def __init__(self):
-        self.main_window = tkinter.Tk()
-        self.main_window.wm_title("FourPlusOne's Encyclopedia")
-        windowWidth = self.main_window.winfo_screenwidth()
-        windowHeight = self.main_window.winfo_screenheight()
-        self.main_window.geometry("%dx%d" % (windowWidth / 4, windowHeight * .6))
+        self.mainWindow = tkinter.Tk()
+        self.mainWindow.wm_title("FourPlusOne's Encyclopedia")
+        windowWidth = self.mainWindow.winfo_screenwidth() / 4
+        windowHeight = self.mainWindow.winfo_screenheight() * .6
+        self.mainWindow.geometry("%dx%d" % (windowWidth, windowHeight))
 
-        self.search_frame = tkinter.Frame(self.main_window)
-        self.search_button = tkinter.Button(self.search_frame, text = "Search:",
-                                            command = runSearch)
-        self.search_button.pack()
-        self.search_frame.pack()
+        self.checkboxFrame = tkinter.Frame(self.mainWindow)
+        self.searchFrame = tkinter.Frame(self.mainWindow)
+        self.searchButton = tkinter.Button(self.searchFrame, text ="Search:",
+                                           command = runSearch)
+        self.searchButton.pack()
+        self.searchFrame.pack()
 
 
         tkinter.mainloop()
