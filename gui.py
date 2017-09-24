@@ -16,25 +16,25 @@ class GUI:
 
         # Sets up the checkboxes in their own frame.
         self.checkboxFrame = Frame(self.mainWindow)
-        self.cboxValue1 = IntVar()
-        self.cboxValue2 = IntVar()
-        self.cboxValue3 = IntVar()
-
-        self.checkbox1 = Checkbutton(self.checkboxFrame, text = "Wikipedia", variable = self.cboxValue1)
-        self.checkbox2 = Checkbutton(self.checkboxFrame, text="not", variable=self.cboxValue2)
-        self.checkbox3 = Checkbutton(self.checkboxFrame, text="sure", variable=self.cboxValue3)
-        self.checkbox1.pack()
-        self.checkbox2.pack()
-        self.checkbox3.pack()
+        # Makes list of checkbox labels. Additional attributes can
+        # be added later if needed.
+        checkboxSourceList = [["Wikipedia"], ["not"], ["sure"]]
+        # Loops through list creating each checkbox and packing it.
+        for x in range(len(checkboxSourceList)):
+            cbox = Checkbutton(self.checkboxFrame, text=checkboxSourceList[x][0], variable=checkboxSourceList[x])
+            cbox.pack(anchor="w")
         self.checkboxFrame.pack()
 
+        # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
         self.searchButton = Button(self.searchFrame, text ="Search:",
                                            command = runSearch)
-        self.searchButton.pack()
+        self.searchTextbox = Entry(self.searchFrame, width=int(windowWidth / 9.6))
+        self.searchButton.pack(side="left")
+        self.searchTextbox.pack(side="left")
         self.searchFrame.pack()
 
-
+        # Keeps window active.
         mainloop()
 
 
@@ -46,5 +46,7 @@ def runSearch():
 
 
 # Helpful resources:
-    # setting window size
+    # setting window size:
     # https://www.daniweb.com/programming/software-development/threads/322818/tkinter-window-size
+    # adding widgets in a loop:
+    # https://stackoverflow.com/questions/8536518/how-do-i-create-multiple-checkboxes-from-a-list-in-a-for-loop-in-python-tkinter
