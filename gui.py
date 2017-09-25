@@ -27,6 +27,10 @@ class GUI:
             cbox.pack(anchor="w")
         self.checkboxFrame.pack()
 
+        # Sets up the listbox widget.
+        self.resultsListbox = Listbox(self.mainWindow)
+        self.resultsListbox.pack()
+
         # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
         self.searchButton = Button(self.searchFrame, text ="Search:",
@@ -49,7 +53,10 @@ class GUI:
             tkinter.messagebox.showinfo("Error", "Please type only letters")
             self.searchTextbox.delete(0, "end")
 
-
+    def addToListbox(self, aString):
+        # Add provided string to listbox. END indicates
+        # to append to the end.
+        self.resultsListbox.insert(END, aString)
 
 
 
