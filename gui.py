@@ -2,6 +2,8 @@ from tkinter import *
 import tkinter
 from tkinter import messagebox
 
+import WikipediaAPI
+
 
 class GUI:
     def __init__(self):
@@ -55,7 +57,7 @@ class GUI:
 
         #checks to make sure there are no spaces in the input entered
         else:
-            if " " in search_word:
+            if hasSpaces(search_word) == True:
                 tkinter.messagebox.showinfo("Error", "Please enter only one word. Spaces are not allowed.")
 
             #checks to make sure only letters are being typed being input
@@ -63,8 +65,8 @@ class GUI:
                 search_word = "".join(search_word.split())
 
                 if search_word.isalpha():
-                   print("Searching")
-                   #Insert method for search for word
+                    print("Searching")
+                    getSearchResults(WikipediaAPI.getSearchResults(search_word), self.resultsListbox)
 
                 else:
                     tkinter.messagebox.showinfo("Error", "Please type only letters.")
@@ -76,6 +78,30 @@ class GUI:
     # to append to the end.
         self.resultsListbox.insert(END, aString)
 
+
+#returns list of search results (Only one word)
+def getSearchResults(search_list, listbox):
+    results = []
+    for i in search_list:
+        if hasSpaces(i) == False:
+            results.append(i)
+    addToListBox(results, listbox)
+
+#adds items to list box with summary
+def addToListBox(list, listbox):
+    count = 0
+    for i in list:
+        listbox.insert(count+1, i)
+        listbox.insert(count+1, WikipediaAPI.getSummary(i))
+
+
+
+#checks for spaces
+def hasSpaces(check_word):
+    if " " in check_word:
+        return True
+    else:
+        return False
 
 
     # Helpful resources:
