@@ -27,10 +27,6 @@ class GUI:
             cbox.pack(anchor="w")
         self.checkboxFrame.pack()
 
-        # Sets up the listbox widget.
-        self.resultsListbox = Listbox(self.mainWindow)
-        self.resultsListbox.pack()
-
         # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
         self.searchButton = Button(self.searchFrame, text ="Search:",
@@ -44,25 +40,36 @@ class GUI:
         mainloop()
 
     def runSearch(self):
+        search_word = self.searchTextbox.get()
 
-        #verify only letters
-        search_word = "".join(self.searchTextbox.get().split())
-        if search_word.isalpha():
-            print("valid")
-        else:
-            tkinter.messagebox.showinfo("Error", "Please type only letters")
+        #checks to make sure that input has been entered into the textbox
+        if search_word == "":
+            tkinter.messagebox.showinfo("Error", "Please enter a word to search.")
             self.searchTextbox.delete(0, "end")
 
-    def addToListbox(self, aString):
-        # Add provided string to listbox. END indicates
-        # to append to the end.
-        self.resultsListbox.insert(END, aString)
+        #checks to make sure there are no spaces in the input entered
+        else:
+            if " " in search_word:
+                tkinter.messagebox.showinfo("Error", "Please enter only one word. Spaces are not allowed.")
+
+            #checks to make sure only letters are being typed being input
+            else:
+                search_word = "".join(search_word.split())
+
+                if search_word.isalpha():
+                   print("Searching")
+                   #Insert method for search for word
+
+                else:
+                    tkinter.messagebox.showinfo("Error", "Please type only letters.")
+                    self.searchTextbox.delete(0, "end")
 
 
 
-
-# Helpful resources:
+    # Helpful resources:
     # setting window size:
     # https://www.daniweb.com/programming/software-development/threads/322818/tkinter-window-size
     # adding widgets in a loop:
     # https://stackoverflow.com/questions/8536518/how-do-i-create-multiple-checkboxes-from-a-list-in-a-for-loop-in-python-tkinter
+    #https://stackoverflow.com/questions/26987222/checking-whitespace-in-a-string-python
+    #https://docs.python.org/3/library/stdtypes.html
