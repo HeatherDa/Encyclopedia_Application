@@ -28,24 +28,29 @@ class GUI:
         # Loops through list creating each checkbox and packing it.
         for x in range(len(checkboxSourceList)):
             cbox = Checkbutton(self.checkboxFrame, text=checkboxSourceList[x][0], variable=checkboxSourceList[x])
-            cbox.pack(anchor="w")
+            #packing
+            cbox.pack(padx=5,pady=0, side=LEFT)
         self.checkboxFrame.pack()
-
-        # Sets up the listbox widget.
-        self.resultsListbox = Listbox(self.mainWindow)
-        self.resultsListbox.pack()
 
         # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
-        self.searchButton = Button(self.searchFrame, text ="Search:",
-                                           command = self.runSearch)
-        self.searchTextbox = Entry(self.searchFrame, width=int(windowWidth / 9.6))
-        self.searchButton.pack(side="left")
-        self.searchTextbox.pack(side="left")
+        self.searchButton = Button(self.searchFrame, text ="Search:", command = self.runSearch)
+        self.searchTextbox = Entry(self.searchFrame, width=40)
+
+        #packs textbox, button, and frame
+        self.searchTextbox.pack(side=LEFT, padx=0, pady=0)
+        self.searchButton.pack(side=LEFT, padx=5, pady=0)
         self.searchFrame.pack()
+
+        # Sets up the listbox widget.
+        self.listFrame = Frame(self.mainWindow)
+        self.resultsListbox = Listbox(self.listFrame, width=50, height =20)
+        self.resultsListbox.pack()
+        self.listFrame.pack()
 
         # Keeps window active.
         mainloop()
+
 
     def runSearch(self):
         search_word = self.searchTextbox.get()
@@ -66,18 +71,15 @@ class GUI:
 
                 if search_word.isalpha():
                     print("Searching")
+
+                    #clear all search
+                    self.resultsListbox.delete(0, END)
+
                     getSearchResults(WikipediaAPI.getSearchResults(search_word), self.resultsListbox)
 
                 else:
                     tkinter.messagebox.showinfo("Error", "Please type only letters.")
                     self.searchTextbox.delete(0, "end")
-
-
-    def addToListbox(self, aString):
-    # Add provided string to listbox. END indicates
-    # to append to the end.
-        self.resultsListbox.insert(END, aString)
-
 
 #returns list of search results (Only one word)
 def getSearchResults(search_list, listbox):
@@ -87,14 +89,20 @@ def getSearchResults(search_list, listbox):
             results.append(i)
     addToListBox(results, listbox)
 
-#adds items to list box with summary
+# Add provided string to listbox. END indicates
+# to append to the end.
 def addToListBox(list, listbox):
-    count = 0
     for i in list:
-        listbox.insert(count+1, i)
-        listbox.insert(count+1, WikipediaAPI.getSummary(i))
+        listbox.insert(END, i)
 
+        summary = WikipediaAPI.getSummary(i)
+        total_lines= len(summary)/50
 
+        if total_lines < 1.0:
+            listbox.insert(END, WikipediaAPI.getSummary(i))
+        else:
+            listbox.insert(END,summary[:50])
+            listbox.insert(END, summary[50:100])
 
 #checks for spaces
 def hasSpaces(check_word):
@@ -102,7 +110,6 @@ def hasSpaces(check_word):
         return True
     else:
         return False
-
 
     # Helpful resources:
     # setting window size:
