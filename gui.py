@@ -18,14 +18,20 @@ class GUI:
 
         # Sets up the checkboxes in their own frame.
         self.checkboxFrame = Frame(self.mainWindow)
+
         # Makes list of checkbox labels. Additional attributes can
         # be added later if needed.
         checkboxSourceList = [["Wikipedia"], ["not"], ["sure"]]
+
         # Loops through list creating each checkbox and packing it.
         for x in range(len(checkboxSourceList)):
             cbox = Checkbutton(self.checkboxFrame, text=checkboxSourceList[x][0], variable=checkboxSourceList[x])
             cbox.pack(anchor="w")
         self.checkboxFrame.pack()
+
+        # Sets up the listbox widget.
+        self.resultsListbox = Listbox(self.mainWindow)
+        self.resultsListbox.pack()
 
         # Sets up the search frame with button and text box.
         self.searchFrame = Frame(self.mainWindow)
@@ -63,6 +69,12 @@ class GUI:
                 else:
                     tkinter.messagebox.showinfo("Error", "Please type only letters.")
                     self.searchTextbox.delete(0, "end")
+
+
+    def addToListbox(self, aString):
+    # Add provided string to listbox. END indicates
+    # to append to the end.
+        self.resultsListbox.insert(END, aString)
 
 
 
