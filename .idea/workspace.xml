@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15fe887b-b444-42c6-adb3-995830f56674" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Database.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Encyclopedia_Application.iml" afterPath="$PROJECT_DIR$/.idea/Encyclopedia_Application.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database.py" afterPath="$PROJECT_DIR$/Database.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,7 +17,7 @@
       <file leaf-file-name="gui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
+            <state relative-caret-position="1725">
               <caret line="119" column="52" lean-forward="false" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
               <folding />
             </state>
@@ -49,13 +47,18 @@
       <file leaf-file-name="Database.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+            <state relative-caret-position="129">
+              <caret line="75" column="63" lean-forward="false" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
               <folding>
-                <marker date="1506620299000" expanded="true" signature="394:459" ph="CREATE TABLE... TABLE_NAME" />
-                <marker date="1506620299000" expanded="true" signature="646:685" ph="INSERT INTO TABLE_NAME... " />
-                <marker date="1506620299000" expanded="true" signature="950:974" ph="SELECT * FRO... TABLE_NAME" />
-                <marker date="1506620299000" expanded="true" signature="1180:1201" ph="DROP TABLE T... " />
+                <marker date="1506794337000" expanded="true" signature="562:709" ph="CREATE TABLE... TABLE_NAME" />
+                <marker date="1506794337000" expanded="true" signature="820:960" ph="CREATE TABLE... TABLE_USER" />
+                <marker date="1506794337000" expanded="true" signature="1153:1194" ph="INSERT INTO TABLE_NAME... " />
+                <marker date="1506794337000" expanded="true" signature="1404:1480" ph="INSERT INTO TABLE_USER... " />
+                <marker date="1506794337000" expanded="true" signature="1789:1809" ph="SELECT * FRO... TABLE_NAME" />
+                <marker date="1506794337000" expanded="true" signature="1789:1815" ph="SELECT * FRO... TABLE_SEARCH" />
+                <marker date="1506794337000" expanded="true" signature="2168:2185" ph="DROP TABLE T... " />
+                <marker date="1506794337000" expanded="true" signature="2168:2191" ph="DROP TABLE T... " />
+                <marker date="1506794337000" expanded="true" signature="2213:2234" ph="DROP TABLE T... " />
               </folding>
             </state>
           </provider>
@@ -91,7 +94,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="147" />
+    <option name="x" value="405" />
     <option name="y" value="23" />
     <option name="width" value="1005" />
     <option name="height" value="822" />
@@ -257,14 +260,21 @@
       <option name="project" value="LOCAL" />
       <updated>1506448514367</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Created simple sqlite database class.">
+      <created>1506620362388</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1506620362388</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="147" y="23" width="1005" height="822" extended-state="0" />
+    <frame x="405" y="23" width="1005" height="822" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10348259" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15920398" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.50549453" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -326,7 +336,8 @@
     <MESSAGE value="Added validation for textbox to check for letters" />
     <MESSAGE value="Updated validation" />
     <MESSAGE value="Updated validation and gui view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated validation and gui view" />
+    <MESSAGE value="Created simple sqlite database class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created simple sqlite database class." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -368,10 +379,10 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Temp/tkbutton.jpg" />
-    <entry file="file://$PROJECT_DIR$/gui.py">
+    <entry file="file://$PROJECT_DIR$/WikipediaAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="119" column="52" lean-forward="false" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
+        <state relative-caret-position="150">
+          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -384,23 +395,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WikipediaAPI.py">
+    <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="1725">
+          <caret line="119" column="52" lean-forward="false" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+        <state relative-caret-position="129">
+          <caret line="75" column="63" lean-forward="false" selection-start-line="75" selection-start-column="63" selection-end-line="75" selection-end-column="63" />
           <folding>
-            <marker date="1506620299000" expanded="true" signature="394:459" ph="CREATE TABLE... TABLE_NAME" />
-            <marker date="1506620299000" expanded="true" signature="646:685" ph="INSERT INTO TABLE_NAME... " />
-            <marker date="1506620299000" expanded="true" signature="950:974" ph="SELECT * FRO... TABLE_NAME" />
-            <marker date="1506620299000" expanded="true" signature="1180:1201" ph="DROP TABLE T... " />
+            <marker date="1506794337000" expanded="true" signature="562:709" ph="CREATE TABLE... TABLE_NAME" />
+            <marker date="1506794337000" expanded="true" signature="820:960" ph="CREATE TABLE... TABLE_USER" />
+            <marker date="1506794337000" expanded="true" signature="1153:1194" ph="INSERT INTO TABLE_NAME... " />
+            <marker date="1506794337000" expanded="true" signature="1404:1480" ph="INSERT INTO TABLE_USER... " />
+            <marker date="1506794337000" expanded="true" signature="1789:1809" ph="SELECT * FRO... TABLE_NAME" />
+            <marker date="1506794337000" expanded="true" signature="1789:1815" ph="SELECT * FRO... TABLE_SEARCH" />
+            <marker date="1506794337000" expanded="true" signature="2168:2185" ph="DROP TABLE T... " />
+            <marker date="1506794337000" expanded="true" signature="2168:2191" ph="DROP TABLE T... " />
+            <marker date="1506794337000" expanded="true" signature="2213:2234" ph="DROP TABLE T... " />
           </folding>
         </state>
       </provider>
