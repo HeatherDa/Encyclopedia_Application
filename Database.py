@@ -73,11 +73,37 @@ class Database:
 
         conn.commit()
 
-# todo: create a join that gets specific user history depending
+    # todo: test this method by feeding it a username.
+    # depending on user name it should yield all the search results matching the username and ID
+    def display_user_history(self, user_name):
 
-    # def display_user_history(self, user_name):
+        un = user_name
 
-      #  c.execute('SELECT ')
+        c.execute('SELECT userID.tu, user_name.tu, col2.ts FROM TABLE_USER AS tu JOIN TABLE_SEARCH'
+                  ' AS ts ON tu.userID = ts.col3'
+                  ' WHERE lower(user_name) = lower(?)', un)
+
+        user_history = c.fetchall()
+
+        for hist in user_history:
+            return hist
+
+        conn.commit()
+
+
+    def check_if_user(self,username, password):
+
+        c.execute('SELECT * FROM TABLE_USER WHERE user_name = ? AND password = ?, (username, password)')
+
+        found = c.fetchone()
+
+        if found:
+            print('user exists')
+            # todo: give permissions
+        else:
+            print('user does not exist')
+            # todo: deny permissions
+
 
     # deletes the table, for testing purpose
     def delete_tables(self):
