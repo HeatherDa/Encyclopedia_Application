@@ -68,10 +68,9 @@ class Database:
 
         all_rows = c.fetchall()
 
-        for row in all_rows:
-            return row
-
         conn.commit()
+
+        return all_rows
 
     # todo: test this method by feeding it a username.
     # depending on user name it should yield all the search results matching the username and ID
@@ -85,10 +84,9 @@ class Database:
 
         user_history = c.fetchall()
 
-        for hist in user_history:
-            return hist
-
         conn.commit()
+
+        return user_history
 
 
     def check_if_user(self,username, password):
