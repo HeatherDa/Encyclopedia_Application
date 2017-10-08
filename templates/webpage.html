@@ -18,18 +18,21 @@
         <label for="cbox2">Star Wars:</label>
         <input type="checkbox" id="cbox2"/>
 
-        <label>90s Nostalgia:</label>
+        <label for="cbox3">90s Nostalgia:</label>
         <input type="checkbox" id="cbox3"/>
     </form>
 
     <div id="picsResults">
         <p>Picture results go here...</p>
     </div>
-
-    <hr>
-
-    <div>
-
+        <hr>
+    <div id="searchResults">
+        <p>Other stuff goes here...</p>
     </div>
+
+    <script>
+        var searchDiv = document.getElementById("searchResults");
+        searchDiv.style.visibility = 'hidden';
+    </script>
    </body>
 </html>
