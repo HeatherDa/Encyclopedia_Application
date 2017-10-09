@@ -5,6 +5,7 @@ from tkinter import messagebox
 import WikipediaAPI
 
 
+
 class GUI:
     def __init__(self):
         # Makes main window widget and gives it a title.

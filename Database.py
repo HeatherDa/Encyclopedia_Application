@@ -1,7 +1,7 @@
 import sqlite3
 
 # Global variables, change the sqlite_file file path if necessary
-sqlite_file = '/Users/DarthVader/Desktop/Encyclopedia_Application/history.sqlite'
+sqlite_file = 'Encyclopedia_Application/history.sqlite'
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
 
@@ -29,13 +29,13 @@ class Database:
 
         conn.commit()
 
+
     # create database table
     def create_user_table(self):
-            c.execute('CREATE TABLE TABLE_USER(userID INTEGER PRIMARY KEY NULL,user_name VARCHAR,'
+        c.execute('CREATE TABLE TABLE_USER(userID INTEGER PRIMARY KEY NULL,user_name VARCHAR,'
                       ' password VARCHAR, first TEXT, last Text)')
 
-            conn.commit()
-
+        conn.commit()
 
 
     # plug in user input from textbox to save item to database
@@ -51,6 +51,7 @@ class Database:
 
         conn.commit()
 
+
     def add_user(self, uname, pw, fname, lname):
 
         try:
@@ -60,6 +61,7 @@ class Database:
             print('Error with PRIMARY KEY')
 
         conn.commit()
+
 
     # returns rows of search items stored in database, use in the combobox for search history
     def display_all_history(self):
@@ -86,6 +88,7 @@ class Database:
 
         conn.commit()
 
+
         return user_history
 
 
@@ -109,6 +112,8 @@ class Database:
         c.execute('DROP TABLE TABLE_SEARCH')
         c.execute('DROP TABLE TABLE_USER')
         conn.commit()
+
+
 
     # closes database connection
     def close_db(self):
