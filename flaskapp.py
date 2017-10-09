@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -6,9 +6,13 @@ app = Flask(__name__)
 def index():
    return render_template('webpage.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def loginRoute():
-    return render_template('login.html')
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        inputValues = request.get_data()
+        return str(inputValues)
 
 @app.route('/signup')
 def signupRoute():

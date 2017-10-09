@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1>Signup Page</h1>
-    <form id="Form" name="signupForm">
+    <form id="signupForm" name="signupForm">
         <label for="signupUser">Username: </label>
         <input type="text" id="signupUser" name="signupUser"/>
         <br>
@@ -21,4 +21,5 @@
         <label for="signupSSN">SSN (no dashes): </label>
         <input type="number" id="signupSSN" name="signupSSN">
     </form>
+    <p><a href="/login">Login</a></p>
 {% endblock %}
