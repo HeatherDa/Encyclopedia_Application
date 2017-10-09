@@ -1,14 +1,24 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+    <h1>Signup Page</h1>
     <form id="Form" name="signupForm">
         <label for="signupUser">Username: </label>
         <input type="text" id="signupUser" name="signupUser"/>
-
+        <br>
         <label for="signupPW">Password: </label>
         <input type="password" id="signupPW" name="signupPW"/>
-
+        <br>
         <label for="signupPW2">Re-enter Password: </label>
         <input type="password" id="signupPW2" name="signupPW2"/>
+        <br>
+        <label for="signupFirst">First Name: </label>
+        <input type="text" id="signupFirst" name="signupFirst"/>
+        <br>
+        <label for="signupLast">Last Name: </label>
+        <input type="text" id="signupLast" name="signupLast"/>
+        <br>
+        <label for="signupSSN">SSN (no dashes): </label>
+        <input type="number" id="signupSSN" name="signupSSN">
     </form>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+    <h1>Login Page</h1>
     <form id="loginForm" name="loginForm">
         <label for="loginUser">Username: </label>
         <input type="text" id="loginUser" name="loginUser"/>
@@ -8,4 +9,5 @@
         <label for="loginPW">Password: </label>
         <input type="password" id="loginPW" name="loginPW"/>
     </form>
+    <p>Not signed up? <a href="/signup">Click here.</a></p>
 {% endblock %}
