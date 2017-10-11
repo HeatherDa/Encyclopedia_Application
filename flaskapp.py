@@ -13,7 +13,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # Creates an instance of database.
-    cur = get_db().cursor()
+    # with app.app_context():
+    #     cur = get_db().cursor()
     return render_template('webpage.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -53,7 +54,7 @@ def make_dicts(cursor, row):
                 for idx, value in enumerate(row))
 
 
-g.db.row_factory = make_dicts
+    # g.db.row_factory = make_dicts
 
 def init_db():
     with app.app_context():
