@@ -4,6 +4,7 @@ import os
 import Database
 import sqlite3
 
+# Picks the name of the database.
 DATABASE = '/Encyclopedia_Application/history.sqlite'
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    # Creates an instance of database.
     cur = get_db().cursor()
     return render_template('webpage.html')
 
@@ -29,13 +31,14 @@ def signupRoute():
 
 '''the following db code is from...
  http://flask.pocoo.org/docs/0.12/patterns/sqlite3/'''
-
+# Method that creates the database if one does not exist.
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+# Process for closing connection.
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -43,6 +46,8 @@ def close_connection(exception):
         db.close()
 
 '''Makes dictionary from rows '''
+# Conversion method for turning database results (tuples)
+# into a dictionary.
 def make_dicts(cursor, row):
     return dict((cursor.description[idx][0], value)
                 for idx, value in enumerate(row))
