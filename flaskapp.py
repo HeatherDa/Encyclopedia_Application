@@ -29,11 +29,15 @@ def loginRoute():
 # TODO  Add validation for login using database
         loggedIn = True
         print("got to end of login!  " + str(loggedIn))
-        return redirect(url_for('/'))
+        return redirect(url_for('index'))
 
 @app.route('/signup')
 def signupRoute():
-    return render_template('signup.html')
+    if request.method == 'GET':
+        return render_template('signup.html')
+    elif request.method == 'POST':
+# TODO  Add credentials to databaase
+        return redirect(url_for('index'))
 
 
 '''the following db code is from...
