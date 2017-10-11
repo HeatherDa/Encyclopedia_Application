@@ -3,8 +3,8 @@ DROP TABLE if EXISTS TABLE_USER;
 
 CREATE TABLE TABLE_SEARCH (
   id integer PRIMARY KEY AUTOINCREMENT,
-  search_string text not null,
-  user_id integer FOREIGN key REFERENCES TABLE_USER(userID)
+  search_string text not null /*,*/
+ /* user_id integer not null FOREIGN key (userID) REFERENCES TABLE_USER(userID)*/
 );
 
 CREATE TABLE TABLE_USER (

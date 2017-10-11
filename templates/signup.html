@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1>Signup Page</h1>
-    <form id="signupForm" name="signupForm">
+    <form id="signupForm" name="signupForm" method="post" action="{{ url_for('signupRoute') }}">
         <label for="signupUser">Username: </label>
         <input type="text" id="signupUser" name="signupUser"/>
         <br>

@@ -1,13 +1,16 @@
 
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request, g, redirect, url_for
 import os
 import Database
 import sqlite3
 
 # Picks the name of the database.
-DATABASE = '/Encyclopedia_Application/history.sqlite'
+DATABASE = 'history.sqlite'
+#DATABASE = '/Encyclopedia_Application/history.sqlite'
 
+loggedIn = False
 app = Flask(__name__)
+
 
 
 @app.route('/')
@@ -22,8 +25,11 @@ def loginRoute():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        inputValues = request.get_data()
-        return str(inputValues)
+        # inputValues = request.get_data()
+# TODO  Add validation for login using database
+        loggedIn = True
+        print("got to end of login!  " + str(loggedIn))
+        return redirect(url_for('/'))
 
 @app.route('/signup')
 def signupRoute():
@@ -42,6 +48,7 @@ def get_db():
 # Process for closing connection.
 @app.teardown_appcontext
 def close_connection(exception):
+    print("teardown thing reached")
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
@@ -74,6 +81,8 @@ def query_db(query, args=(), one=False):
 
 for user in query_db('select * from users'):
     print user['username'], 'has the id', user['user_id']'''
+
+init_db()
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 import sqlite3
 
 # Global variables, change the sqlite_file file path if necessary
-sqlite_file = 'Encyclopedia_Application/history.sqlite'
+sqlite_file = '/history.sqlite'
 # conn = sqlite3.connect(sqlite_file)
 # c = conn.cursor()
 
@@ -23,6 +23,7 @@ class Database:
 
     def __init__(self):
         self.conn = sqlite3.connect(sqlite_file)
+        print("you got a connection!!!")
         self.c = self.conn.cursor()
 
     # create database table
