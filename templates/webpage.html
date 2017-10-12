@@ -40,19 +40,26 @@
 
 <html>
     <head>
-       <!-- <link rel= "stylesheet" href= "test.css"> -->
+      <!-- <link rel= "stylesheet" href= "test.css">-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/homestyle.css') }}">
+
 
     </head>
 
-    <p><a href="/login" class="login">Login here</a></p>
+    <button><a href="/login" class="login"
+               style="font-size:14pt;
+               padding: 90px 20px;
+               border-radius: 10px;
+               text-decoration: none">Login</a></button>
 
     <body>
+        <form action = "{{url_for('searchresults')}}" method = "POST">
+
 
         <div class="searchwrap">
            <div class="search">
 
-              <input type="text" class="searchTerm" placeholder=" Search..." name = "search">
+               <p><input type="text" class="searchTerm" placeholder=" Search..." name = "search" pattern="[A-Za-z]+" title="One word only letters no spaces" style="font-size:20pt" required></p>
 
               <button type="submit" class="searchButton" value="Search">Search</button>
            <br>
@@ -63,6 +70,7 @@
           </div>
 
         </div>
+        </form>
     </body>
 </html>
 

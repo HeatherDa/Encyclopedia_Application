@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, g, redirect, url_for
 import os
 import Database
 import sqlite3
+import Results
 
 # Picks the name of the database.
 DATABASE = 'history.sqlite'
@@ -19,6 +20,28 @@ def index():
     # with app.app_context():
     #     cur = get_db().cursor()
     return render_template('webpage.html')
+
+
+@app.route('/searchresults', methods=['GET', 'POST'])
+def searchresults():
+    if request.method == 'POST':
+        try:
+            search_word = request.form['search']
+            msg = ("search word is: " + search_word)
+            Results.getWord(search_word)
+        except:
+            msg = ("Unable to copy word")
+        try:
+            sent = ""
+            for checkbox in 'cbox1', 'cbox2', 'cbox3':
+                value = request.form.get(checkbox)
+                if value:
+                    sent = sent + checkbox + ", "
+            msg2 = (sent)
+        except:
+            msg2 = ("nothing checked")
+        finally:
+            return render_template("results.html", msg=msg2)
 
 
 @app.route('/login', methods=['GET', 'POST'])
