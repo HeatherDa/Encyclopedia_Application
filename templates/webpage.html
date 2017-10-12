@@ -22,15 +22,18 @@
 
     <div id="picsResults">
         <p>Picture results go here...</p>
+        {{ pictures }}
     </div>
         <hr>
     <div id="searchResults">
         <p>Other stuff goes here...</p>
+        {{ wiki }}
+        {{ starwars }}
     </div>
 
     <script>
-        var searchDiv = document.getElementById("searchResults");
-        searchDiv.style.visibility = 'hidden';
+{#        var searchDiv = document.getElementById("searchResults");#}
+{#        searchDiv.style.visibility = 'hidden';#}
     </script>
 
 {% endblock %}

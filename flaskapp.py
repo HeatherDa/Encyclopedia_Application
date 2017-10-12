@@ -38,7 +38,8 @@ def index():
             if request.form.get('cboxI'):
                 images = ImageAPI.ImageSearch.key
 
-        return redirect(url_for('index'))
+
+        return redirect(url_for('index', wiki=summary, starwars=starwars, pictures=images))
 
 @app.route('/login', methods=['GET', 'POST'])
 def loginRoute():
