@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, g, redirect, url_for
 import os
 import Database
 import sqlite3
+import WikipediaAPI, StarWarsAPI, ImageAPI
 
 # Picks the name of the database.
 DATABASE = 'history.sqlite'
@@ -13,12 +14,31 @@ app = Flask(__name__)
 
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     # Creates an instance of database.
     # with app.app_context():
     #     cur = get_db().cursor()
-    return render_template('webpage.html')
+    if request.method == 'GET':
+        return render_template('webpage.html')
+    elif request.method == 'POST':
+        # return request.get_data()
+        # return request.form[]
+        # return request.form.get('cbox1')
+# TODO I'm drawing a blank on a better way to do this, but for now...:
+        if request.form.get('cboxA'):
+            summary = WikipediaAPI.getSummary(1)
+            starwars = StarWarsAPI.StarWarsAPI.getData(StarWarsAPI.StarWarsAPI)
+            images = ImageAPI.ImageSearch.key
+        else:
+            if request.form.get('cboxW'):
+                summary = WikipediaAPI.getSummary(1)
+            if request.form.get('cboxS'):
+                starwars = StarWarsAPI.StarWarsAPI.getData(StarWarsAPI.StarWarsAPI)
+            if request.form.get('cboxI'):
+                images = ImageAPI.ImageSearch.key
+
+        return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def loginRoute():
@@ -31,7 +51,7 @@ def loginRoute():
         print("got to end of login!  " + str(loggedIn))
         return redirect(url_for('index'))
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signupRoute():
     if request.method == 'GET':
         return render_template('signup.html')

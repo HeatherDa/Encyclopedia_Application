@@ -2,19 +2,22 @@
 
 {% block body %}
     <p><a href="/login">Login here</a></p>
-    <form id="searchForm" name="searchForm">
+    <form id="searchForm" name="searchForm" method="post" action="{{ url_for('index') }}">
         Search:
         <input type="text" name="search"/>
-        <input type="button" value="Search"/>
+        <input type="submit" value="Search"/>
         <br>
         <label for="cbox1">Wikipedia:</label>
-        <input type="checkbox" id="cbox1"/>
+        <input type="checkbox" id="cbox1" name="cboxW"/>
 
         <label for="cbox2">Star Wars:</label>
-        <input type="checkbox" id="cbox2"/>
+        <input type="checkbox" id="cbox2" name="cboxS"/>
 
-        <label for="cbox3">90s Nostalgia:</label>
-        <input type="checkbox" id="cbox3"/>
+        <label for="cbox3">Images:</label>
+        <input type="checkbox" id="cbox3" name="cboxI"/>
+
+        <label for="cbox4">All:</label>
+        <input type="checkbox" id="cbox4" name="cboxA"/>
     </form>
 
     <div id="picsResults">
