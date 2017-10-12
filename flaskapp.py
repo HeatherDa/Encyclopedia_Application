@@ -20,6 +20,7 @@ def index():
     #     cur = get_db().cursor()
     return render_template('webpage.html')
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def loginRoute():
     if request.method == 'GET':
