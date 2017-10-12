@@ -86,7 +86,7 @@ def query_db(query, args=(), one=False):
 for user in query_db('select * from users'):
     print user['username'], 'has the id', user['user_id']'''
 
-init_db()
+# init_db()
 
 
 if __name__ == '__main__':
