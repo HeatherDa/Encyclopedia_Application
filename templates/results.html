@@ -1,4 +1,4 @@
-<!--<link rel="stylesheet" href="testforresults.css">-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
 
 <html>
     <!-- For Microsoft Edge Flexbox implementation details, see https://msdn.microsoft.com/en-us/library/bg124109 -->
@@ -6,8 +6,13 @@
       <aside></aside>
       <section id="content">
           <div class="container">
-          <h1><a href="https://www.w3schools.com">Word</a></h1>
+              <ul>
+                  {%  for result in results %}
+                    <li><h1><a href="https://www.w3schools.com">{{ result }}</a></h1></li>
+                  {%  endfor %}
+              </ul>
           <p>this will be the description of the word</p>
+
           </div>
       </section>
       <aside></aside>

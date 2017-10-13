@@ -4,6 +4,7 @@ import os
 import Database
 import sqlite3
 import WikipediaAPI, StarWarsAPI, ImageAPI
+import Results
 
 # Picks the name of the database.
 DATABASE = 'history.sqlite'
@@ -56,6 +57,8 @@ def searchresults():
         try:
             search_word = request.form['search']
             msg = ("search word is: " + search_word)
+            list = Results.getList(search_word)
+
         except:
             msg = ("Unable to copy word")
         try:
@@ -65,10 +68,11 @@ def searchresults():
                 if value:
                     sent = sent + checkbox + ", "
             msg2 = (sent)
+
         except:
             msg2 = ("nothing checked")
         finally:
-            return render_template("results.html", msg=msg2)
+            return render_template("results.html", results=list)
 
 
 
