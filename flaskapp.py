@@ -1,10 +1,10 @@
 
 from flask import Flask, render_template, request, g, redirect, url_for
-import os
-import Database
 import sqlite3
 import WikipediaAPI, StarWarsAPI, ImageAPI
 import Results
+
+
 
 # Picks the name of the database.
 DATABASE = 'history.sqlite'
