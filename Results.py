@@ -1,23 +1,35 @@
-import StarWarsAPI
 import WikipediaAPI
+import requests
+from bs4 import BeautifulSoup
+import StarWarsAPI
 
-def getWikipedia(word):
-    wikiList = WikipediaAPI.getSearchResults("hello")
-    wikiDict = dict.fromkeys(wikiList)
-    print(wikiDict)
-    for key, value in wikiDict.items():
-        try:
-            word = WikipediaAPI.getPage(key)
-            wikiDict[key] = [word.pageid, word.url, word.content]
-        except:
-            wikiDict[key] = "delete"
-    return(wikiDict)
+def getWikiInfo(word):
+    wlist = []
+    url = 'https://en.wikipedia.org/wiki/'
+    if " " in word:
+        word = word.replace(" ", "_")
+        url = url + word
+    else:
+        url = url + word
 
+    r = requests.get(url)
+    html = r.text
+    soup = BeautifulSoup(html, "html.parser")
+    soup.prettify()
 
-def getList(word):
-    wikiList = WikipediaAPI.getSearchResults(word)
-    starList = StarWarsAPI.StarWarsAPI(word).getData()
-    final_list = set(starList + wikiList)
-    return (final_list)
+    sum = ""
+    try:
+        sum = WikipediaAPI.getSummary(word)
+    except:
+        sum = "Click link to view page"
 
-print (getWikipedia("hello"))
+    wlist.append(word)
+    wlist.append(url)
+    wlist.append(sum)
+    return(wlist)
+
+def getWikipediaList(word):
+    return WikipediaAPI.getSearchResults(word)
+
+def getStarWarsList(word):
+    return StarWarsAPI.StarWarsAPI(word).getData()

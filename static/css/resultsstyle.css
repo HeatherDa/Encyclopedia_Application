@@ -3,24 +3,13 @@ body {
   font-size: 20px;
 }
 
-h1{
-
-}
-
-
 #flexContainer {
   /* Specifies that the contents will be laid out according to Flexbox rules. */
   display: flex;
 }
 
 
-aside {
-  /* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
-  flex: 1 1 15%;
-  min-width: 150px;
-  padding: 3px;
-  margin: 3px;
-}
+
 
 #content {
   min-height: 800px;

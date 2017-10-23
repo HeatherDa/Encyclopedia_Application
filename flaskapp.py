@@ -16,33 +16,6 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
-#def index():
-    # Creates an instance of database.
-    # with app.app_context():
-    #     cur = get_db().cursor()
-  #  if request.method == 'GET':
-  #      return render_template('webpage.html')
-  #  elif request.method == 'POST':
-        # return request.get_data()
-        # return request.form[]
-        # return request.form.get('cbox1')
-# TODO I'm drawing a blank on a better way to do this, but for now...:
-   #     if request.form.get('cboxA'):
-   #         summary = WikipediaAPI.getSummary(1)
-   #         starwars = StarWarsAPI.StarWarsAPI.getData(StarWarsAPI.StarWarsAPI)
-   #         images = ImageAPI.ImageSearch.key
-   #     else:
-   #         if request.form.get('cboxW'):
-   #             summary = WikipediaAPI.getSummary(1)
-   #         if request.form.get('cboxS'):
-   #             starwars = StarWarsAPI.StarWarsAPI.getData(StarWarsAPI.StarWarsAPI)
-   #         if request.form.get('cboxI'):
-   #             images = ImageAPI.ImageSearch.key
-
-
-    #    return redirect(url_for('index', wiki=summary, starwars=starwars, pictures=images))
-
-
 def index():
     # Creates an instance of database.
     # with app.app_context():
@@ -53,26 +26,25 @@ def index():
 
 @app.route('/searchresults', methods=['GET', 'POST'])
 def searchresults():
+    words = []
+    info = []
     if request.method == 'POST':
         try:
             search_word = request.form['search']
-            msg = ("search word is: " + search_word)
-            list = Results.getList(search_word)
+
+            #For Wikipedia
+            words = Results.getWikipediaList(search_word)
+            for w in words:
+                info.append(Results.getWikiInfo(w))
+
+            #For StarWars
 
         except:
             msg = ("Unable to copy word")
-        try:
-            sent = ""
-            for checkbox in 'cbox1', 'cbox2', 'cbox3':
-                value = request.form.get(checkbox)
-                if value:
-                    sent = sent + checkbox + ", "
-            msg2 = (sent)
 
-        except:
-            msg2 = ("nothing checked")
         finally:
-            return render_template("results.html", results=list)
+            return render_template("results.html", results=info)
+            #return render_template("results.html")
 
 
 

@@ -1,20 +1,12 @@
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+{% extends 'SearchHeader.html' %}
 
-<html>
-    <!-- For Microsoft Edge Flexbox implementation details, see https://msdn.microsoft.com/en-us/library/bg124109 -->
-    <section id="flexContainer">
-      <aside></aside>
-      <section id="content">
-          <div class="container">
-              <ul  style="list-style-type:none">
-                  {%  for result in results %}
-                    <li><h1><a href="https://www.w3schools.com">{{ result }}</a></h1></li>
-                  {%  endfor %}
-              </ul>
-          <p>this will be the description of the word</p>
-
-          </div>
-      </section>
-      <aside></aside>
-    </section>
-</html>
+{% block section %}
+    <div>
+        <ul  style="list-style-type:none">
+            {% for word in results %}
+                <li><h1><a href= {{ word[1]}}>{{ word[0] }}</a></h1></li>
+                <p>{{ word[2] }}</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
