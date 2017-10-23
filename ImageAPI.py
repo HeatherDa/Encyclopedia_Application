@@ -11,25 +11,32 @@ def getKey():
 
 #ImageSearch class that returns the first image link found depending on query
 class ImageSearch:
-       def __init__(self):
+    def __init__(self):
               self.key = getKey()
         #the actual function to call for an image link, with a query
-       def newImage(self,query):
-              formatedURL = "https://www.googleapis.com/customsearch/v1?key={0}" \
+    def newImage(self,query):
+            formatedURL = "https://www.googleapis.com/customsearch/v1?key={0}" \
                      "&cx=017800523099077225978:er15x8rnv_i&q={1}&searchT" \
                      "ype=image&fileType=jpg&imgSize=medium&alt=json".format(self.key,query)
 
-              request = requests.get(formatedURL)
-              json_data = json.loads(request.content)
-              print(json_data)
-              picture = ""
-              try:
-                     picture = json_data["items"][0]["link"]
-              except KeyError:
-                     print("Something went wrong try again")
-                     picture = "Something went wrong,try again."
+            request = requests.get(formatedURL)
+            json_data = json.loads(request.content)
+            print(json_data)
+            picture = ""
+            pictureList = []
+            try:
+                count = 0
+                while count <5:
+                    picture = json_data["items"][count]["link"]
+                    count+=1
+                    print(picture)
+                    pictureList.append(picture)
 
-              return picture
+            except KeyError:
+                    print("Something went wrong try again")
+                    picture = "Something went wrong,try again."
+
+            return pictureList
 
 
 #Test Code
