@@ -6,6 +6,8 @@ from sqlalchemy.orm import mapper, sessionmaker, relationship
 from User import User
 from Search import Search
 
+n_user = User
+
 class Database():
 
     def __init__(self, connection_string='sqlite:///Encyclopedia_Application.database.sqlite3'):
@@ -35,8 +37,7 @@ class Database():
                       Column('password', String(100)),
                       Column('first_name', String(25)),
                       Column('last_name', String(25)),
-                      Column('email', String(75)),
-                      Column('currency', Integer))
+                      Column('email', String(75)))
         users.create(self.engine, checkfirst=True)
         searches = Table('Searches', self.metadata,
                       Column('search_id', Integer, primary_key=True),
@@ -65,11 +66,11 @@ class Database():
     def get_user(self, username):
         session = self._get_session()
         for user in session.query(User).\
-            filter(User.user_name==username):
+            filter(n_user.user_name==username):
             return user
 
     def find_user_with_email(self, email):
         session = self._get_session()
         for user in session.query(User).\
-            filter(User.email==email):
+            filter(n_user.email==email):
             return user

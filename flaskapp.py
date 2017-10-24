@@ -1,11 +1,14 @@
 
-from flask import Flask, render_template, request, g, redirect, url_for
+from flask import Flask, render_template, request, g, redirect, url_for, session
 import sqlite3
 import WikipediaAPI, StarWarsAPI, ImageAPI
 import Results
+import Database
+import User
 
+um = User.UserManager()
 
-
+db = Database.Database()
 # Picks the name of the database.
 DATABASE = 'history.sqlite'
 #DATABASE = '/Encyclopedia_Application/history.sqlite'
@@ -54,6 +57,12 @@ def loginRoute():
         return render_template('login.html')
     elif request.method == 'POST':
         # inputValues = request.get_data()
+        username = request.form['loginUser']
+        password = request.form['loginPW']
+
+        if um.validate_credentials(username, password):
+            session['username'] = username
+            return redirect('/')
 # TODO  Add validation for login using database
         loggedIn = True
         print("got to end of login!  " + str(loggedIn))
@@ -62,8 +71,20 @@ def loginRoute():
 @app.route('/signup', methods=['GET', 'POST'])
 def signupRoute():
     if request.method == 'GET':
+
         return render_template('signup.html')
     elif request.method == 'POST':
+        username = request.form['signupUser']
+        password = request.form['signupPW']
+        firstname = request.form['signupFirst']
+        lastname = request.form['signupLast']
+        email = request.form.get['signupEmail']
+
+        try:
+            um.add_user(email, lastname, username, password, email)
+            session['username'] = username
+        except RuntimeError as rte:
+            print('failed to create user')
 # TODO  Add credentials to databaase
         return redirect(url_for('index'))
 
