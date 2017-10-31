@@ -1,22 +1,50 @@
 
 from flask import Flask, render_template, request, g, redirect, url_for, session
-import sqlite3
+
 import WikipediaAPI, StarWarsAPI, ImageAPI
 import Results
-import Database
-import User
+import Models
+from flask_login import login_user, logout_user, LoginManager, login_required
 
-um = User.UserManager()
 
-db = Database.Database()
-# Picks the name of the database.
-DATABASE = 'history.sqlite'
-#DATABASE = '/Encyclopedia_Application/history.sqlite'
 
-loggedIn = False
+# loggedIn = False
 app = Flask(__name__)
 
+# secret key & sqlalchemy database link
+app.secret_key = 'tiniest little secrets'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/searches.sqlite'
 
+# login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+# for debugging
+app.debug = True
+
+# creates database
+def init_db():
+    Models.db.init_app(app)
+    Models.db.app = app
+    Models.db.create_all()
+
+# for logging in user and loading them
+@login_manager.user_loader
+def load_user(user_id):
+    return Models.User.query.filter_by(user_id=user_id).first()
+
+# required for login
+@app.route('/protected')
+@login_required
+def protected():
+    return "protected area"
+
+# logs user out
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "Logged out"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,19 +54,27 @@ def index():
     return render_template("homestyle.html")
 
 
-
+# todo: test to make sure search results are getting stored with correct user_id attachted
 @app.route('/searchresults', methods=['GET', 'POST'])
 def searchresults():
     words = []
     info = []
+    # I think this is how to get the current logged in user - requires further testing
+    current_user = session.get(load_user)
+
     if request.method == 'POST':
         try:
             search_word = request.form['search']
+
+            new_search = Models.Search(None, search_word, current_user)
+            Models.db.session.add(new_search)
+            Models.db.session.commit()
 
             #For Wikipedia
             words = Results.getWikipediaList(search_word)
             for w in words:
                 info.append(Results.getWikiInfo(w))
+
 
             #For StarWars
 
@@ -56,23 +92,21 @@ def loginRoute():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        # inputValues = request.get_data()
-        username = request.form['loginUser']
-        password = request.form['loginPW']
+        user = Models.User.query.filter_by(username=request.form['loginUser']).first()
 
-        if um.validate_credentials(username, password):
-            session['username'] = username
-            return redirect('/')
-# TODO  Add validation for login using database
-        loggedIn = True
-        print("got to end of login!  " + str(loggedIn))
+        if user:
+            if user.password == request.form['loginPW']:
+                login_user(user)
+
+                return redirect('/')
+
         return redirect(url_for('index'))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signupRoute():
     if request.method == 'GET':
-
         return render_template('signup.html')
+
     elif request.method == 'POST':
         username = request.form['signupUser']
         password = request.form['signupPW']
@@ -81,62 +115,18 @@ def signupRoute():
         email = request.form.get['signupEmail']
 
         try:
-            um.add_user(email, lastname, username, password, email)
-            session['username'] = username
+            new_user = Models.User(None, username, password, firstname, lastname, email)
+            Models.db.session.add(new_user)
+            Models.db.session.commit()
+
+            login_user(new_user)
+
         except RuntimeError as rte:
             print('failed to create user')
-# TODO  Add credentials to databaase
+
         return redirect(url_for('index'))
 
 
-'''the following db code is from...
- http://flask.pocoo.org/docs/0.12/patterns/sqlite3/'''
-# Method that creates the database if one does not exist.
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(DATABASE)
-    return db
-
-# Process for closing connection.
-@app.teardown_appcontext
-def close_connection(exception):
-    print("teardown thing reached")
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
-'''Makes dictionary from rows '''
-# Conversion method for turning database results (tuples)
-# into a dictionary.
-def make_dicts(cursor, row):
-    return dict((cursor.description[idx][0], value)
-                for idx, value in enumerate(row))
-
-
-    # g.db.row_factory = make_dicts
-
-def init_db():
-    with app.app_context():
-        db = get_db()
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
-
-
-def query_db(query, args=(), one=False):
-    cur = get_db().execute(query, args)
-    rows = cur.fetchall()
-    cur.close()
-    return (rows[0] if rows else None) if one else rows
-
-'''Here is how you can use it:
-
-for user in query_db('select * from users'):
-    print user['username'], 'has the id', user['user_id']'''
-
-# init_db()
-
-
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True)
