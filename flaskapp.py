@@ -89,7 +89,10 @@ def searchresults():
                     info.append(Results.getWikiInfo(w))
                 return render_template("results.html", results=info)
             elif value == 'sw':
-                info = Results.getStarWarsList(search_word)
+                try:
+                    info = Results.getStarWarsList(search_word)
+                except:
+                    return "too many requests using the StarWarsAPI! Try using something else."
                 test = info[0]
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
