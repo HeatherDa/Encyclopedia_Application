@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # secret key & sqlalchemy database link
 app.secret_key = 'tiniest little secrets'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/searches.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///searches.sqlite'
 
 # login manager
 login_manager = LoginManager()
@@ -31,6 +31,7 @@ def init_db():
 # for logging in user and loading them
 @login_manager.user_loader
 def load_user(user_id):
+    print("debug: user id is " + user_id)
     return Models.User.query.filter_by(user_id=user_id).first()
 
 # required for login

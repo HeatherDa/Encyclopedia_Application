@@ -22,13 +22,29 @@
 
               <button type="submit" class="searchButton" value="Search">Search</button>
            <br>
-              <input type="checkbox" name="cbox1" id="cbox1"><label for="cbox1">Wikipedia</label>
-              <input type="checkbox" name="cbox2" id="cbox2"><label for="cbox2">Star Wars</label>
-              <input type="checkbox" name="cbox3" id="cbox3"><label for="cbox3">90s Nostalgia:</label>
-
+              <input type="checkbox" name="cbox1" id="cbox1" class="the_boxes"><label for="cbox1">Wikipedia</label>
+              <input type="checkbox" name="cbox2" id="cbox2" class="the_boxes"><label for="cbox2">Star Wars</label>
+              <input type="checkbox" name="cbox3" id="cbox3" class="the_boxes"><label for="cbox3">Images</label>
+              <input type="checkbox" name="cboxAll" id="cboxAll"><label for="cboxAll">All</label>
           </div>
 
         </div>
         </form>
     </body>
+
+<script>
+    var allbox = document.getElementById("cboxAll");
+    boxes = document.getElementsByClassName("the_boxes");
+    allbox.addEventListener("click", function () {
+        var truefalse;
+        if (allbox.checked) {
+            truefalse = true;
+        } else {
+            truefalse = false;
+        }
+        for (var i = 0; i < boxes.length; i++) {
+            boxes[i].checked = truefalse;
+        }
+    })
+</script>
 </html>
