@@ -97,21 +97,23 @@ def searchresults():
                 else:
                     return render_template("starwars.html", person=info, error="")
             elif value == 'pic':
-                #get list of picture
-                return render_template("picture.html")
+                pictures = Results.getPicture(search_word)
+                return render_template("picture.html", pictures = pictures)
             elif value == 'all':
                 list = []
                 words = Results.getWikipediaList(search_word)
                 for w in words:
                     list.append(Results.getWikiInfo(w))
 
+                pictures = Results.getPicture(search_word)
+
                 info = Results.getStarWarsList(search_word)
                 test = info[0]
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
-                    return render_template("allresults.html", error=error, person="", results = list)
+                    return render_template("allresults.html", error=error, person="", results = list, pictures=pictures)
                 else:
-                    return render_template("allresults.html", person=info, error="", results = list)
+                    return render_template("allresults.html", person=info, error="", results = list, pictures=pictures)
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -32,20 +32,12 @@ table {
 /* for images on load*/
 .sturdy2 td:nth-child(1) {
     width: 33%;
-    border: 1px solid black;
 }
 
 .sturdy2 td:nth-child(2) {
     width: 33%;
-    border: 1px solid black;
 }
 
 .sturdy2 td:nth-child(3) {
     width: 33%;
-    border: 1px solid black;
-}
-
-img {
-    width: 155px;
-    height: 155px;
 }

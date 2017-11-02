@@ -2,7 +2,7 @@ import WikipediaAPI
 import requests
 from bs4 import BeautifulSoup
 import StarWarsAPI
-
+import ImageAPI
 def getWikiInfo(word):
     wlist = []
     url = 'https://en.wikipedia.org/wiki/'
@@ -35,3 +35,8 @@ def getStarWarsList(word):
     x = StarWarsAPI.StarWarsAPI(word).getData()
     print(x)
     return x
+def getPicture(search_word):
+    image = ImageAPI.ImageSearch()
+    picture = image.newImage(search_word)
+    print(picture)
+    return picture

@@ -42,5 +42,9 @@ class ImageSearch:
 #Test Code
 #image = ImageSearch()
 #picture = image.newImage("Potatoes")
-#print(picture)
-
+#for i in picture:
+#    print(i)
+#print(len(picture))
+#print(picture[1])
+#print(picture[2])
+#print(picture[3])
