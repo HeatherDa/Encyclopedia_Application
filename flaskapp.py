@@ -6,8 +6,6 @@ import Results
 import Models
 from flask_login import login_user, logout_user, LoginManager, login_required, current_user
 
-
-
 # loggedIn = False
 app = Flask(__name__)
 
@@ -47,12 +45,20 @@ def logout():
     logout_user()
     return "Logged out"
 
+
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Creates an instance of database.
     # with app.app_context():
     #     cur = get_db().cursor()
     return render_template("homestyle.html")
+
+
+
+
 
 
 # todo: test to make sure search results are getting stored with correct user_id attachted
@@ -65,28 +71,47 @@ def searchresults():
     currentuser = session.get(load_user)
     print("debug: cur user is " + str(current_user))
     if request.method == 'POST':
-        try:
-            search_word = request.form['search']
+        search_word = request.form['search']
 
-            new_search = Models.Search(None, search_word, currentuser)
-            Models.db.session.add(new_search)
-            Models.db.session.commit()
-
-            #For Wikipedia
-            words = Results.getWikipediaList(search_word)
-            for w in words:
-                info.append(Results.getWikiInfo(w))
+        new_search = Models.Search(None, search_word, currentuser)
+        Models.db.session.add(new_search)
+        Models.db.session.commit()
 
 
-            #For StarWars
+        apis = ['wiki', 'sw', 'pic', 'all']
+        for api in apis:
+            value = request.form.get(api)
+            if value == 'wiki':
+                # For Wikipedia
+                info = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    info.append(Results.getWikiInfo(w))
+                return render_template("results.html", results=info)
+            elif value == 'sw':
+                info = Results.getStarWarsList(search_word)
+                test = info[0]
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("starwars.html", error=error, person="")
+                else:
+                    return render_template("starwars.html", person=info, error="")
+            elif value == 'pic':
+                #get list of picture
+                return render_template("picture.html")
+            elif value == 'all':
+                list = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    list.append(Results.getWikiInfo(w))
 
-        except:
-            msg = ("Unable to copy word")
-
-        finally:
-            return render_template("results.html", results=info)
-            #return render_template("results.html")
-
+                info = Results.getStarWarsList(search_word)
+                test = info[0]
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("allresults.html", error=error, person="", results = list)
+                else:
+                    return render_template("allresults.html", person=info, error="", results = list)
 
 
 @app.route('/login', methods=['GET', 'POST'])

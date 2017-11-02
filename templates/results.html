@@ -1,12 +1,25 @@
-{% extends 'SearchHeader.html' %}
+{% extends 'SearchHeader.html'%}
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+    </head>
 
-{% block section %}
-    <div>
-        <ul  style="list-style-type:none">
-            {% for word in results %}
+    </form>
+       <form>
+        <table class = "sturdy">
+            <td></td>
+            <td>
+               <ul  style="list-style-type:none">
+                {% for word in results %}
                 <li><h1><a href= {{ word[1]}}>{{ word[0] }}</a></h1></li>
-                <p>{{ word[2] }}</p>
-            {% endfor %}
-        </ul>
-    </div>
+                    {{ word[2] }}
+                <p></p>
+                {% endfor %}
+                </ul>
+            </td>
+            <td></td>
+        </table>
+    </form>
+    {{ test }}
+
 {% endblock %}

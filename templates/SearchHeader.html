@@ -9,15 +9,14 @@
               <div class="search_container">
                   <h3><input type="text" class="search" name="search" required><button type="submit" class="searchButton" value="Search">Search</button>
               </h3>
-                  <p> <input type="checkbox" name="wiki" value="wiki" class = "checkbox">Wikipedia
-                 <input type="checkbox" name="sw" value="sw" class = "checkbox" >Starwars
-                 <input type="checkbox" name="pic" value="pic" class = "checkbox" >Pictures</p>
+                  <p> <input type="radio" name="wiki" value="wiki" class = "checkbox">Wikipedia
+                 <input type="radio" name="sw" value="sw" class = "checkbox" >Starwars
+                 <input type="radio" name="pic" value="pic" class = "checkbox" >Pictures</p>
+                  <input type="radio" name="all" value="all" class = "checkbox" >All</p>
               </div>
         </div>
     </form>
     <aside></aside>
-    <section>
-    {%  block section %}{% endblock %}
-    </section>
+    {%  block body %}{% endblock %}
     <aside></aside>
 </html>

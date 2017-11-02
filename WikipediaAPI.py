@@ -14,7 +14,7 @@ def getSuggestions(query):
 #returns full list of all possible results
 def getSearchResults(query):
     suggestions = wikipedia.search(query)
-    return suggestions
+    return suggestions[:4]
 
 #Returns the title of the article
 def getTitle(query):

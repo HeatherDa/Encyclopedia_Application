@@ -56,6 +56,7 @@ class StarWarsAPI:
             world = world[:-2]
             list.append(world)
         return list
+
 #Below are helper methods for the getData method, please ignore
     def getStarShip(self,ships):
         formatedUrl = requests.get(ships)

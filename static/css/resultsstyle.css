@@ -1,45 +1,51 @@
-body {
-  font-family: Arial, Helvetica, Sans-Serif;
-  font-size: 20px;
+p {
+    height: 7px;
+    font-size: 16px;
 }
 
-#flexContainer {
-  /* Specifies that the contents will be laid out according to Flexbox rules. */
-  display: flex;
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.sturdy td:nth-child(1) {
+    width: 25%;
+}
+
+.sturdy td:nth-child(2) {
+    width: 50%;
+    text-align: left;
+    font-size: 17px;
+}
+
+.sturdy td:nth-child(3) {
+    width: 25%;
 }
 
 
 
 
-#content {
-  min-height: 800px;
-  background: #ABABAB;
-  /* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
-  flex: 2 1 70%;
-  margin: 3px;
-  padding: 3px;
+
+
+
+
+/* for images on load*/
+.sturdy2 td:nth-child(1) {
+    width: 33%;
+    border: 1px solid black;
 }
 
+.sturdy2 td:nth-child(2) {
+    width: 33%;
+    border: 1px solid black;
+}
 
+.sturdy2 td:nth-child(3) {
+    width: 33%;
+    border: 1px solid black;
+}
 
-/* When the page is resized, use the styles below */
-
-@media all and (max-width: 640px) {
-  #flexContainer {
-    /* Shorthand property specifying flex-direction and flex-wrap */
-    flex-flow: column wrap;
-  }
-  header {
-    min-height: 75px;
-  }
-  aside {
-    min-height: 50px;
-    /* Specifying the order so the nav appears as the second item in the flex container */
-    order: 2;
-  }
-  #content {
-    /* Specifying the order so the nav appears as the third item in the flex container */
-    min-height: 725px;
-    order: 3;
-  }
+img {
+    width: 155px;
+    height: 155px;
 }

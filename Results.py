@@ -32,4 +32,6 @@ def getWikipediaList(word):
     return WikipediaAPI.getSearchResults(word)
 
 def getStarWarsList(word):
-    return StarWarsAPI.StarWarsAPI(word).getData()
+    x = StarWarsAPI.StarWarsAPI(word).getData()
+    print(x)
+    return x
