@@ -38,5 +38,8 @@ def getStarWarsList(word):
 def getPicture(search_word):
     image = ImageAPI.ImageSearch()
     picture = image.newImage(search_word)
+    pictures = []
+    for i in picture:
+        pictures.append([i])
     print(picture)
     return picture

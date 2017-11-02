@@ -1,0 +1,25 @@
+{% extends 'SearchHeader.html'%}
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+    </head>
+
+    </form>
+       <form>
+        <table class = "sturdy">
+            <td></td>
+            <td>
+                    <table class = "sturdy2">
+                        <!-- this is where the pictures will go
+                        one for each table-->
+                        {% for picture in pictures%}
+                        <td>
+                           <img style="width: 155px; height: 155px;" src={{picture}}>
+                        </td>
+                        {% endfor %}
+                    </table>
+                </td>
+            <td></td>
+        </table>
+    </form>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'SearchHeader.html'%}
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+    </head>
+
+    </form>
+       <form>
+        <table class = "sturdy">
+             <td></td>
+            <td>
+                    <section>
+                    <table class = "sturdy2">
+                        <!-- this is where the pictures will go
+                        one for each table-->
+                        <td>
+                            <img style="width: 155px; height: 155px;" src={{ pictures[0] }}>
+                        </td>
+
+                        <td>
+                            <img style="width: 155px; height: 155px" src={{ pictures[1] }}>
+                        </td>
+
+                        <td>
+                            <img style="width: 155px; height: 155px" src={{ pictures[2] }}>
+                        </td>
+                    </table>
+                    </section>
+
+                    <section style="text-align: center">
+                        {{ error }}
+                    </section>
+                    <div id="info">
+                        Name: {{ person[0]}}
+                        <p></p>
+
+                        Gender: {{ person[1]}}
+                        <p></p>
+
+                        Date Year: {{ person[2]}}
+                        <p></p>
+
+                        Starships: {{ person[3]}}
+                        <p></p>
+
+                        Films: {{ person[4]}}
+                        <p></p>
+
+                        Race: {{ person[5]}}
+                        <p></p>
+
+                        Planet of Origin: {{ person[6]}}
+                    </div>
+                    <section>
+                        <ul  style="list-style-type:none">
+                        {% for word in results %}
+                        <li><h1><a href= {{ word[1]}}>{{ word[0] }}</a></h1></li>
+                            {{ word[2] }}
+                        <p></p>
+                        {% endfor %}
+                        </ul>
+                    </section>
+            </td>
+            <td></td>
+        </table>
+    </form>
+
+
+    <script>
+    window.onload= function () {
+      varname = "{{ error }}";
+      if (varname != ""){
+          document.getElementById("info").style.display = "none";
+      }
+    }
+
+    </script>
+{% endblock %}

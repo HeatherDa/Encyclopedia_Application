@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/mainstyle.css') }}">
+    </head>
+    <h1><a href="main.html">Website Name</a></h1>
+        <div class="topnav" id="myTopnav">
+            <a href="/login" class="login">Login</a>
+        </div>
+
+    <body>
+        {%  block body %}{% endblock %}
+    </body>
+</html>
