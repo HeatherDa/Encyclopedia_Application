@@ -9,22 +9,24 @@
         <table class = "sturdy">
              <td></td>
             <td>
+
+
+
                     <section>
-                    <table class = "sturdy2">
-                        <!-- this is where the pictures will go
-                        one for each table-->
-                        <td>
-                            <img style="width: 155px; height: 155px;" src={{ pictures[0] }}>
-                        </td>
-
-                        <td>
-                            <img style="width: 155px; height: 155px" src={{ pictures[1] }}>
-                        </td>
-
-                        <td>
-                            <img style="width: 155px; height: 155px" src={{ pictures[2] }}>
-                        </td>
+                    <table class="sturdy2">
+                        {% for picture in pictures %}
+                           <tr>
+                               {% for p in picture %}
+                                   <td><img style="width: 155px; height: 155px" src={{p}}></td>
+                               {% endfor %}
+                           </tr>
+                        {% endfor %}
                     </table>
+
+
+
+
+
                     </section>
 
                     <section style="text-align: center">
@@ -33,7 +35,7 @@
                     <div id="info" class="starwars">
                         <div>
                             <p></p>
-                            <h4 style="text-align: center">STARWARS API</h4>
+                            <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">STARWARS API</h6>
                             <p></p>
                             Name: {{ person[0]}}
                             <p></p>
@@ -53,10 +55,13 @@
                     </div>
 
 
-                    <section>
+                    <section class="wiki">
+                        <p></p>
+                        <h6 style="text-align: center; font-family: 'Hoefler Text Regular'; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">WIKIPEDIA API</h6>
+                        <p></p>
                         <ul  style="list-style-type:none">
                         {% for word in results %}
-                        <li><h1><a href= {{ word[1]}}>{{ word[0] }}</a></h1></li>
+                        <li><h6 style="font-family: 'Hoefler Text Regular'; font-size: 25px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"><a href= {{ word[1]}}>{{ word[0] }}</a></h6></li>
                             {{ word[2] }}
                         <p></p>
                         {% endfor %}

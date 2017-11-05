@@ -1,1 +1,28 @@
-{{ error }}
+{% extends 'SearchHeader.html'%}
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
+    </head>
+    <form>
+        <table class = "sturdy">
+            <td></td>
+                <td>
+
+
+                    <table class="sturdy2">
+                        {% for t in testlist %}
+                           <tr>
+                               {% for i in t %}
+                                   <td>{{ i }}</td>
+                               {% endfor %}
+                           </tr>
+                        {% endfor %}
+                    </table>
+
+
+                </td>
+            <td></td>
+        </table>
+    </form>
+
+{% endblock %}

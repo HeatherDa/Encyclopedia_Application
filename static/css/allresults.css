@@ -6,12 +6,10 @@ p {
 table {
     table-layout: fixed;
     width: 100%;
-    border: 1px solid black;
 }
 
 .sturdy td:nth-child(1) {
     width: 25%;
-    border: 1px solid black;
 }
 
 .sturdy td:nth-child(2) {
@@ -59,4 +57,9 @@ table {
 
 .starwars div {
     margin-left: 35px;
+}
+
+
+.wiki {
+        background-color: #f2f2f2;
 }

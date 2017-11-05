@@ -4,25 +4,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
     </head>
 
-    </form>
-       <form>
+    <form>
         <table class = "sturdy">
             <td></td>
-            <td>
-            {{ error }}
+                <td>
 
-                    <table class = "sturdy2">
-                    {% for i in length%}
-                    <tr>
-                        {% for picture in pictures%}
-                            <td>
-                                <p style="font-size: 5px">{{ picture[i]}}</p>
-                            </td>
+
+                    <table class="sturdy2">
+                        {% for picture in pictures %}
+                           <tr>
+                               {% for p in picture %}
+                                   <td><img style="width: 155px; height: 155px" src={{p}}></td>
+                               {% endfor %}
+                           </tr>
                         {% endfor %}
-
-
-                    </tr>
-                    {% endfor %}
                     </table>
 
 

@@ -1,21 +1,25 @@
 {% extends 'SearchHeader.html'%}
 {% block body %}
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}">
     </head>
-
-    </form>
-       <form>
+     <form class="wiki">
         <table class = "sturdy">
             <td></td>
             <td>
-               <ul  style="list-style-type:none">
+
+
+                <p></p>
+                <h6 style="text-align: center; font-family: 'Hoefler Text Regular'; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">WIKIPEDIA API</h6>
+                <p></p>
+                <ul  style="list-style-type:none">
                 {% for word in results %}
-                <li><h1><a href= {{ word[1]}}>{{ word[0] }}</a></h1></li>
+                <li><h6 style="font-family: 'Hoefler Text Regular'; font-size: 25px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"><a href= {{ word[1]}}>{{ word[0] }}</a></h6></li>
                     {{ word[2] }}
                 <p></p>
                 {% endfor %}
                 </ul>
+
             </td>
             <td></td>
         </table>

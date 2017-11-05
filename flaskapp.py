@@ -104,16 +104,9 @@ def searchresults():
 
         #IMAGE API
         elif value == 'pic':
-            try:
-                pictures = Results.getPicture(search_word)
-                length = []
-                for i in range(0, len(pictures), 1):
-                    length.append(i)
-                return render_template("picture.html", pictures=pictures, length=length)
-            except:
-                error = "too many requests using the ImageAPI! Try using something else."
+            pictures = Results.getPicture(search_word)
+            return render_template("picture.html", pictures = pictures)
 
-                return render_template("picture.html", error=error)
 
 
         #ALL APIS
