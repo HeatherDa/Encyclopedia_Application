@@ -1,7 +1,7 @@
 {% extends 'SearchHeader.html'%}
 {% block body %}
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/allresults.css') }}">
     </head>
 
     </form>
@@ -30,27 +30,29 @@
                     <section style="text-align: center">
                         {{ error }}
                     </section>
-                    <div id="info">
-                        Name: {{ person[0]}}
-                        <p></p>
-
-                        Gender: {{ person[1]}}
-                        <p></p>
-
-                        Date Year: {{ person[2]}}
-                        <p></p>
-
-                        Starships: {{ person[3]}}
-                        <p></p>
-
-                        Films: {{ person[4]}}
-                        <p></p>
-
-                        Race: {{ person[5]}}
-                        <p></p>
-
-                        Planet of Origin: {{ person[6]}}
+                    <div id="info" class="starwars">
+                        <div>
+                            <p></p>
+                            <h4 style="text-align: center">STARWARS API</h4>
+                            <p></p>
+                            Name: {{ person[0]}}
+                            <p></p>
+                            Gender: {{ person[1]}}
+                            <p></p>
+                            Date Year: {{ person[2]}}
+                            <p></p>
+                            Starships: {{ person[3]}}
+                            <p></p>
+                            Films: {{ person[4]}}
+                            <p></p>
+                            Race: {{ person[5]}}
+                            <p></p>
+                            Planet of Origin: {{ person[6]}}
+                            <p></p>
+                        </div>
                     </div>
+
+
                     <section>
                         <ul  style="list-style-type:none">
                         {% for word in results %}
@@ -60,6 +62,8 @@
                         {% endfor %}
                         </ul>
                     </section>
+
+
             </td>
             <td></td>
         </table>

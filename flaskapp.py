@@ -77,62 +77,61 @@ def searchresults():
         Models.db.session.add(new_search)
         Models.db.session.commit()
 
+        value = request.form['options']
 
-        apis = ['wiki', 'sw', 'pic', 'all']
-        for api in apis:
-            value = request.form.get(api)
-            if value == 'wiki':
-                # For Wikipedia
-                info = []
-                words = Results.getWikipediaList(search_word)
-                for w in words:
-                    info.append(Results.getWikiInfo(w))
-                return render_template("results.html", results=info)
-            elif value == 'sw':
-                try:
-                    info = Results.getStarWarsList(search_word)
-                except:
-                    return "too many requests using the StarWarsAPI! Try using something else."
-                test = info[0]
-                if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
-                    return render_template("starwars.html", error=error, person="")
-                else:
-                    return render_template("starwars.html", person=info, error="")
+        #WIKI API
+        if value == 'wiki':
+            # For Wikipedia
+            info = []
+            words = Results.getWikipediaList(search_word)
+            for w in words:
+                info.append(Results.getWikiInfo(w))
+            return render_template("results.html", results=info)
 
-
-
-
-
-            elif value == 'pic':
-                try:
-                    pictures = Results.getPicture(search_word)
-                    length = []
-                    for i in range(0, len(pictures), 1):
-                        length.append(i)
-                    return render_template("picture.html", pictures = pictures, length = length)
-                except:
-                    error = "too many requests using the ImageAPI! Try using something else."
-
-                    return render_template("picture.html", error = error)
-
-
-
-            elif value == 'all':
-                list = []
-                words = Results.getWikipediaList(search_word)
-                for w in words:
-                    list.append(Results.getWikiInfo(w))
-
-                pictures = Results.getPicture(search_word)
-
+        #STARWARS API
+        elif value == 'sw':
+            try:
                 info = Results.getStarWarsList(search_word)
-                test = info[0]
-                if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
-                    return render_template("allresults.html", error=error, person="", results = list, pictures=pictures)
-                else:
-                    return render_template("allresults.html", person=info, error="", results = list, pictures=pictures)
+            except:
+                return "too many requests using the StarWarsAPI! Try using something else."
+            test = info[0]
+            if test == 'NA':
+                error = "There are no results for that search. Please try searching again"
+                return render_template("starwars.html", error=error, person="")
+            else:
+                return render_template("starwars.html", person=info, error="")
+
+
+        #IMAGE API
+        elif value == 'pic':
+            try:
+                pictures = Results.getPicture(search_word)
+                length = []
+                for i in range(0, len(pictures), 1):
+                    length.append(i)
+                return render_template("picture.html", pictures=pictures, length=length)
+            except:
+                error = "too many requests using the ImageAPI! Try using something else."
+
+                return render_template("picture.html", error=error)
+
+
+        #ALL APIS
+        elif value == 'all':
+            list = []
+            words = Results.getWikipediaList(search_word)
+            for w in words:
+                list.append(Results.getWikiInfo(w))
+
+            pictures = Results.getPicture(search_word)
+
+            info = Results.getStarWarsList(search_word)
+            test = info[0]
+            if test == 'NA':
+                error = "There are no results for that search. Please try searching again"
+                return render_template("allresults.html", error=error, person="", results=list, pictures=pictures)
+            else:
+                return render_template("allresults.html", person=info, error="", results=list, pictures=pictures)
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -1,0 +1,62 @@
+p {
+    height: 7px;
+    font-size: 16px;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.sturdy td:nth-child(1) {
+    width: 25%;
+    border: 1px solid black;
+}
+
+.sturdy td:nth-child(2) {
+    width: 50%;
+    text-align: left;
+    font-size: 17px;
+}
+
+.sturdy td:nth-child(3) {
+    width: 25%;
+}
+
+.sturdy tr{
+}
+
+
+
+
+
+
+
+
+
+/* for images on load*/
+.sturdy2 td:nth-child(1) {
+    width: 33%;
+
+}
+
+.sturdy2 td:nth-child(2) {
+    width: 33%;
+}
+
+.sturdy2 td:nth-child(3) {
+    width: 33%;
+}
+
+
+
+.starwars {
+    background-image: url("https://cssanimation.rocks/demo/starwars/images/bg.jpg");
+    color: #feda4a;
+    font-family: 'Pathway Gothic One', sans-serif;
+}
+
+.starwars div {
+    margin-left: 35px;
+}

@@ -17,34 +17,17 @@
 
         <div class="searchwrap">
            <div class="search">
-
                <p><input type="text" class="searchTerm" placeholder=" Search..." name = "search" pattern="[A-Za-z]+" title="One word only letters no spaces" style="font-size:20pt" required></p>
 
               <button type="submit" class="searchButton" value="Search">Search</button>
            <br>
-               <input type="checkbox" name="wiki" value="wiki"/>Wikipedia
-               <input type="checkbox" name="sw" value="sw" checked/>Starwars
-               <input type="checkbox" name="pic" value="pic"/>Pictures
-               <input type="checkbox" name="all" value="all"/>All
+               <input type="radio" name="options" value="wiki" checked/>Wikipedia
+               <input type="radio" name="options" value="sw"/>Starwars
+               <input type="radio" name="options" value="pic"/>Pictures
+               <input type="radio" name="options" value="all"/>All
           </div>
 
         </div>
         </form>
     </body>
-
-<script>
-    var allbox = document.getElementById("cboxAll");
-    boxes = document.getElementsByClassName("the_boxes");
-    allbox.addEventListener("click", function () {
-        var truefalse;
-        if (allbox.checked) {
-            truefalse = true;
-        } else {
-            truefalse = false;
-        }
-        for (var i = 0; i < boxes.length; i++) {
-            boxes[i].checked = truefalse;
-        }
-    })
-</script>
 </html>
