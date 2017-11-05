@@ -99,9 +99,25 @@ def searchresults():
                     return render_template("starwars.html", error=error, person="")
                 else:
                     return render_template("starwars.html", person=info, error="")
+
+
+
+
+
             elif value == 'pic':
-                pictures = Results.getPicture(search_word)
-                return render_template("picture.html", pictures = pictures)
+                try:
+                    pictures = Results.getPicture(search_word)
+                    length = []
+                    for i in range(0, len(pictures), 1):
+                        length.append(i)
+                    return render_template("picture.html", pictures = pictures, length = length)
+                except:
+                    error = "too many requests using the ImageAPI! Try using something else."
+
+                    return render_template("picture.html", error = error)
+
+
+
             elif value == 'all':
                 list = []
                 words = Results.getWikipediaList(search_word)

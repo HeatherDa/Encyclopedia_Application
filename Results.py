@@ -35,11 +35,14 @@ def getStarWarsList(word):
     x = StarWarsAPI.StarWarsAPI(word).getData()
     print(x)
     return x
+
+
 def getPicture(search_word):
     image = ImageAPI.ImageSearch()
     picture = image.newImage(search_word)
     pictures = []
     for i in picture:
         pictures.append([i])
-    print(picture)
-    return picture
+    composite_list = [picture[x:x + 3] for x in range(0, len(picture), 3)]
+
+    return composite_list

@@ -1,17 +1,18 @@
 {% extends 'SearchHeader.html'%}
 {% block body %}
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/resultsstyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/starwars.css') }}">
     </head>
 
 
-    <form>
+    <form bgcolor = "https://i.pinimg.com/236x/e2/36/30/e236302dba286af76c7bbaa3a9c8998e--star-wallpaper-night-stars.jpg">
         <table class = "sturdy">
             <td></td>
             <td>
                 <section style="text-align: center">
                     {{ error }}
                 </section>
+
                 <div id="info">
                     Name: {{ person[0]}}
                     <p></p>

@@ -9,15 +9,23 @@
         <table class = "sturdy">
             <td></td>
             <td>
+            {{ error }}
+
                     <table class = "sturdy2">
-                        <!-- this is where the pictures will go
-                        one for each table-->
+                    {% for i in length%}
+                    <tr>
                         {% for picture in pictures%}
-                        <td>
-                           <img style="width: 155px; height: 155px;" src={{picture}}>
-                        </td>
+                            <td>
+                                <p style="font-size: 5px">{{ picture[i]}}</p>
+                            </td>
                         {% endfor %}
+
+
+                    </tr>
+                    {% endfor %}
                     </table>
+
+
                 </td>
             <td></td>
         </table>
