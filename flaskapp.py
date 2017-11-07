@@ -86,26 +86,29 @@ def searchresults():
             words = Results.getWikipediaList(search_word)
             for w in words:
                 info.append(Results.getWikiInfo(w))
-            return render_template("results.html", results=info)
+            return render_template("results.html", results=info, checked = value, searched_word = search_word)
 
         #STARWARS API
         elif value == 'sw':
             try:
                 info = Results.getStarWarsList(search_word)
+                #info = ["test", "test"]
             except:
                 return "too many requests using the StarWarsAPI! Try using something else."
             test = info[0]
+
+            test = "NA"
             if test == 'NA':
                 error = "There are no results for that search. Please try searching again"
-                return render_template("starwars.html", error=error, person="")
+                return render_template("starwars.html", error=error, person="", checked = value, searched_word = search_word)
             else:
-                return render_template("starwars.html", person=info, error="")
+                return render_template("starwars.html", person=info, error="", checked = value, searched_word = search_word)
 
 
         #IMAGE API
         elif value == 'pic':
             pictures = Results.getPicture(search_word)
-            return render_template("picture.html", pictures = pictures)
+            return render_template("picture.html", pictures = pictures, checked = value, searched_word = search_word)
 
 
 
@@ -117,14 +120,16 @@ def searchresults():
                 list.append(Results.getWikiInfo(w))
 
             pictures = Results.getPicture(search_word)
+            picture = pictures[0]
+            #picture = ["one","two", "three"]
 
             info = Results.getStarWarsList(search_word)
             test = info[0]
             if test == 'NA':
                 error = "There are no results for that search. Please try searching again"
-                return render_template("allresults.html", error=error, person="", results=list, pictures=pictures)
+                return render_template("allresults.html", error=error, person="", results=list, picture=picture, checked = value, searched_word = search_word)
             else:
-                return render_template("allresults.html", person=info, error="", results=list, pictures=pictures)
+                return render_template("allresults.html", person=info, error="", results=list, picture=picture, checked = value, searched_word = search_word)
 
 
 @app.route('/login', methods=['GET', 'POST'])

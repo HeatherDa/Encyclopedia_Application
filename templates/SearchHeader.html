@@ -7,18 +7,26 @@
         <div class="topnav" id="myTopnav">
            <a href="/login" class="login">Login</a>
               <div class="search_container">
-                  <h3><input type="text" class="search" name="search" required><button type="submit" class="searchButton" value="Search">Search</button>
-              </h3>
-                   <div style="color: white">
-                       <input type="radio" name="options" value="wiki" checked/>Wikipedia
-                       <input type="radio" name="options" value="sw"/>Starwars
-                       <input type="radio" name="options" value="pic"/>Pictures
-                       <input type="radio" name="options" value="all"/>All
+
+                  <div style="margin-left: 25px"><h3><input type="text" class="search" name="search" value="{{ searched_word }}" required><button type="submit" class="searchButton" value="Search">Search</button></h3>
+                  </div>
+                   <div style="color: white; margin-right: 30px">
+                       <input type="radio" name="options" value="wiki" id = "wiki"/>Wikipedia
+                       <input type="radio" name="options" value="sw" id = "sw"/>Starwars
+                       <input type="radio" name="options" value="pic" id = "pic"/>Pictures
+                       <input type="radio" name="options" value="all" id = "all"/>All
                    </div>
+
               </div>
         </div>
     </form>
     <aside></aside>
     {%  block body %}{% endblock %}
     <aside></aside>
+
+    <script>
+    window.onload = function (){
+            document.getElementById("{{ checked }}").checked = true;
+        }
+    </script>
 </html>

@@ -26,7 +26,7 @@ class ImageSearch:
             pictureList = []
             try:
                 count = 0
-                while count <5:
+                while count <9:
                     picture = json_data["items"][count]["link"]
                     count+=1
                     print(picture)

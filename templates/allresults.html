@@ -12,28 +12,21 @@
 
 
 
-                    <section>
+                    <section style="margin-left: 30px">
                     <table class="sturdy2">
-                        {% for picture in pictures %}
                            <tr>
                                {% for p in picture %}
-                                   <td><img style="width: 155px; height: 155px" src={{p}}></td>
+                                   <td><a href="{{ p }}"><img style="width: 170px; height: 155px" src={{p}}></a></td>
                                {% endfor %}
                            </tr>
-                        {% endfor %}
                     </table>
-
-
-
-
-
                     </section>
 
                     <section style="text-align: center">
                         {{ error }}
                     </section>
                     <div id="info" class="starwars">
-                        <div>
+                        <div id="info2">
                             <p></p>
                             <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">STARWARS API</h6>
                             <p></p>

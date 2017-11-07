@@ -44,5 +44,4 @@ def getPicture(search_word):
     for i in picture:
         pictures.append([i])
     composite_list = [picture[x:x + 3] for x in range(0, len(picture), 3)]
-
     return composite_list

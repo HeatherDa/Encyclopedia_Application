@@ -14,7 +14,7 @@
                         {% for picture in pictures %}
                            <tr>
                                {% for p in picture %}
-                                   <td><img style="width: 155px; height: 155px" src={{p}}></td>
+                                   <td><a href="{{ p }}"><img style="width: 155px; height: 155px" src={{p}}></a></td>
                                {% endfor %}
                            </tr>
                         {% endfor %}
