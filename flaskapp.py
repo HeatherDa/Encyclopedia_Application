@@ -69,6 +69,9 @@ def searchresults():
     # I think this is how to get the current logged in user - requires further testing
 
     currentuser = session.get(load_user)
+
+    logState = True
+
     print("debug: cur user is " + str(current_user))
     if request.method == 'POST':
         search_word = request.form['search']
@@ -86,7 +89,7 @@ def searchresults():
             words = Results.getWikipediaList(search_word)
             for w in words:
                 info.append(Results.getWikiInfo(w))
-            return render_template("results.html", results=info, checked = value, searched_word = search_word)
+            return render_template("results.html", results=info, checked = value, searched_word = search_word, logState = logState)
 
         #STARWARS API
         elif value == 'sw':

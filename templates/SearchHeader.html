@@ -5,7 +5,16 @@
     </head>
     <form action = "{{url_for('searchresults')}}" method = "POST">
         <div class="topnav" id="myTopnav">
-           <a href="/login" class="login">Login</a>
+
+            {% if logState %}
+                <!-- if true then-->
+                <a href="/logout" class="Logout">Logout</a>
+                <a href="/extras" class="extras">Extras</a>
+                <a href="/searchHistory" class="SearchHistory">Search History</a>
+                {% else %}
+                <a href="/login" class="login">Login</a>
+            {% endif %}
+
               <div class="search_container">
 
                   <div style="margin-left: 25px"><h3><input type="text" class="search" name="search" value="{{ searched_word }}" required><button type="submit" class="searchButton" value="Search">Search</button></h3>

@@ -4,12 +4,20 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/homestyle.css') }}">
     </head>
-
+    {% if logState %}
+    <!-- if true then-->
+    <button><a href="/logout" class="login"
+               style="font-size:14pt;
+               padding: 90px 20px;
+               border-radius: 10px;
+               text-decoration: none">Logout</a></button>
+    {% else %}
     <button><a href="/login" class="login"
                style="font-size:14pt;
                padding: 90px 20px;
                border-radius: 10px;
                text-decoration: none">Login</a></button>
+    {% endif %}
 
     <body>
         <form action = "{{url_for('searchresults')}}" method = "POST">
