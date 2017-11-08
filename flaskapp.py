@@ -53,7 +53,7 @@ def protected():
 
 # logs user out
 @app.route("/logout")
-# @login_required
+# @login_required       # With this activated, I get an unauthorized access message.
 def logout():
     print("debug: logging out now...")
     logout_user()
@@ -135,13 +135,13 @@ def searchresults():
                 error = "There are no results for that search. Please try searching again"
                 return render_template("starwars.html", error=error, person="", checked = value, searched_word = search_word)
             else:
-                return render_template("starwars.html", person=info, error="", checked = value, searched_word = search_word)
+                return render_template("starwars.html", person=info, error="", checked = value, searched_word = search_word, logState=logState)
 
 
         #IMAGE API
         elif value == 'pic':
             pictures = Results.getPicture(search_word)
-            return render_template("picture.html", pictures = pictures, checked = value, searched_word = search_word)
+            return render_template("picture.html", pictures = pictures, checked = value, searched_word = search_word, logState=logState)
 
 
 
@@ -160,9 +160,9 @@ def searchresults():
             test = info[0]
             if test == 'NA':
                 error = "There are no results for that search. Please try searching again"
-                return render_template("allresults.html", error=error, person="", results=list, picture=picture, checked = value, searched_word = search_word)
+                return render_template("allresults.html", error=error, person="", results=list, picture=picture, checked = value, searched_word = search_word, logState=logState)
             else:
-                return render_template("allresults.html", person=info, error="", results=list, picture=picture, checked = value, searched_word = search_word)
+                return render_template("allresults.html", person=info, error="", results=list, picture=picture, checked = value, searched_word = search_word, logState=logState)
 
 
 @app.route('/login', methods=['GET', 'POST'])
