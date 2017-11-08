@@ -13,8 +13,8 @@ class User(db.Model):
     last_name = db.Column(db.String(20))
     email = db.Column(db.String(50), unique=True)
 
-    def __init__(self, user_id, username, password, first_name, last_name, email):
-        self.user_id = user_id
+    def __init__(self, username, password, first_name, last_name, email):
+
         self.username = username
         self.password = password
         self.first_name = first_name
@@ -40,12 +40,11 @@ class Search(db.Model):
 
     search_id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     description = db.Column(db.String(200))
-    user_id = db.Column(db.String(50), db.ForeignKey('user.user_id'))
+    user_name = db.Column(db.String(50), db.ForeignKey('user.username'))
 
-    def __init__(self, search_id, search_string, owner):
-        self.search_id = search_id
-        self.search_string = search_string
-        self.owner = owner
+    def __init__(self, description, user_name):
+        self.description = description
+        self.user_name = user_name
 
     def __repr__(self):
         return '<Search: %r>' % self.search_string

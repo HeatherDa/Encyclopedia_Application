@@ -12,6 +12,7 @@ app = Flask(__name__)
 # secret key & sqlalchemy database link
 app.secret_key = 'tiniest little secrets'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///searches.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # login manager
 login_manager = LoginManager()
@@ -31,6 +32,13 @@ def init_db():
 def load_user(user_id):
     print("debug: user id is " + user_id)   # user_id here is returning the username of logged in user
     return Models.User.query.filter_by(user_id=user_id).first()
+
+def load_username(username):
+    return Models.User.query.filter_by(username=username).first()
+
+
+def load_search(description):
+    return Models.Search.query.filter_by(description=description).first()
 
 # required for login
 @app.route('/protected')
@@ -54,9 +62,24 @@ def index():
     # Creates an instance of database.
     # with app.app_context():
     #     cur = get_db().cursor()
+    return render_template("signup.html")
+
+@app.route('/homestyle', methods=['GET', 'POST'])
+def home():
+    # Creates an instance of database.
+    # with app.app_context():
+    #     cur = get_db().cursor()
+
+    # currentuser = session['username']
+    #
+    # if request.method == 'POST':
+    #     search_word = request.form['search']
+    #
+    #     new_search = Models.Search(search_word, currentuser)
+    #     Models.db.session.add(new_search)
+    #     Models.db.session.commit()
+
     return render_template("homestyle.html")
-
-
 
 
 
@@ -68,15 +91,15 @@ def searchresults():
     info = []
     # I think this is how to get the current logged in user - requires further testing
 
-    currentuser = session.get(load_user)
+    currentuser = session['username']
 
     logState = True
 
-    print("debug: cur user is " + str(current_user))
+    print("debug: cur user is " + currentuser)
     if request.method == 'POST':
         search_word = request.form['search']
 
-        new_search = Models.Search(None, search_word, currentuser)
+        new_search = Models.Search(search_word, currentuser)
         Models.db.session.add(new_search)
         Models.db.session.commit()
 
@@ -145,8 +168,9 @@ def loginRoute():
         if user:
             if user.password == request.form['loginPW']:
                 login_user(user)
+                session['username'] = user.username
 
-                return redirect('/')
+                return redirect(url_for('home'))
 
         return redirect(url_for('index'))
 
@@ -158,21 +182,24 @@ def signupRoute():
     elif request.method == 'POST':
         username = request.form['signupUser']
         password = request.form['signupPW']
+        confirm = request.form['signupPW2']
         firstname = request.form['signupFirst']
         lastname = request.form['signupLast']
         email = request.form['signupEmail']
 
         try:
-            new_user = Models.User(None, username, password, firstname, lastname, email)
-            Models.db.session.add(new_user)
-            Models.db.session.commit()
+            if password == confirm:
+                new_user = Models.User(username, password, firstname, lastname, email)
+                Models.db.session.add(new_user)
+                session['username'] = new_user.username
+                Models.db.session.commit()
 
-            login_user(new_user)
+                login_user(new_user)
 
         except RuntimeError as rte:
             print('failed to create user')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
