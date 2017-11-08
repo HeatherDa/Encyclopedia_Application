@@ -187,19 +187,26 @@ def signupRoute():
         lastname = request.form['signupLast']
         email = request.form['signupEmail']
 
-        try:
-            if password == confirm:
-                new_user = Models.User(username, password, firstname, lastname, email)
-                Models.db.session.add(new_user)
-                session['username'] = new_user.username
-                Models.db.session.commit()
+        # Verifies all fields have been filled in; otherwise, the page is reloaded
+        # with an error message at top.
+        if username == "" or password == "" or confirm == "" or firstname == "" or lastname == "" or email == "":
+            return render_template("signup.html", errormsg="Please fill in all fields.")
+        else:
 
-                login_user(new_user)
 
-        except RuntimeError as rte:
-            print('failed to create user')
+            try:
+                if password == confirm:
+                    new_user = Models.User(username, password, firstname, lastname, email)
+                    Models.db.session.add(new_user)
+                    session['username'] = new_user.username
+                    Models.db.session.commit()
 
-        return redirect(url_for('home'))
+                    login_user(new_user)
+
+            except RuntimeError as rte:
+                print('failed to create user')
+
+            return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
