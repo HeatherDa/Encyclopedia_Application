@@ -27,6 +27,10 @@ def init_db():
     Models.db.app = app
     Models.db.create_all()
 
+# Global variables.
+errorMsg = "Please fill in all fields"
+# logState = False
+
 # for logging in user and loading them
 @login_manager.user_loader
 def load_user(user_id):
@@ -46,12 +50,15 @@ def load_search(description):
 def protected():
     return "protected area"
 
+
 # logs user out
 @app.route("/logout")
-@login_required
+# @login_required
 def logout():
+    print("debug: logging out now...")
     logout_user()
-    return "Logged out"
+    # return "Logged out"
+    return render_template("homestyle.html", logState=False)
 
 
 
@@ -65,7 +72,7 @@ def index():
     return render_template("signup.html")
 
 @app.route('/homestyle', methods=['GET', 'POST'])
-def home():
+def home(logState):
     # Creates an instance of database.
     # with app.app_context():
     #     cur = get_db().cursor()
@@ -79,7 +86,7 @@ def home():
     #     Models.db.session.add(new_search)
     #     Models.db.session.commit()
 
-    return render_template("homestyle.html")
+    return render_template("homestyle.html", logState=logState)
 
 
 
@@ -163,14 +170,22 @@ def loginRoute():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        user = Models.User.query.filter_by(username=request.form['loginUser']).first()
 
+        userEntry = request.form['loginUser']
+        pwEntry = request.form['loginPW']
+
+        if userEntry == "" or pwEntry == "":
+            return render_template("login.html", errormsg=errorMsg)
+
+        user = Models.User.query.filter_by(username=userEntry).first()
+        print("debug: user: " + str(user))
         if user:
-            if user.password == request.form['loginPW']:
+            if user.password == pwEntry:
                 login_user(user)
                 session['username'] = user.username
-
-                return redirect(url_for('home'))
+                logState = True
+                # return redirect(url_for('home'), logState)
+                return render_template("homestyle.html", logState=logState)
 
         return redirect(url_for('index'))
 
@@ -190,7 +205,7 @@ def signupRoute():
         # Verifies all fields have been filled in; otherwise, the page is reloaded
         # with an error message at top.
         if username == "" or password == "" or confirm == "" or firstname == "" or lastname == "" or email == "":
-            return render_template("signup.html", errormsg="Please fill in all fields.")
+            return render_template("signup.html", errormsg=errorMsg)
         else:
 
 
@@ -200,13 +215,15 @@ def signupRoute():
                     Models.db.session.add(new_user)
                     session['username'] = new_user.username
                     Models.db.session.commit()
-
+                    # print("debug: new_user: " + new_user)
                     login_user(new_user)
+                    logState = True
 
             except RuntimeError as rte:
                 print('failed to create user')
 
-            return redirect(url_for('home'))
+            # return redirect(url_for('home'), logState)
+            return render_template("homestyle.html", logState=logState)
 
 
 if __name__ == '__main__':

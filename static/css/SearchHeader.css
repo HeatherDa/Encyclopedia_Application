@@ -41,6 +41,11 @@ aside {
         display: block;
 }
 
-#signupError {
+/*Colors error message on login and signup pages.*/
+#signupError, #loginError {
     color: red;
+}
+
+#loginForm label, input[type=text] {
+    margin: 5px;
 }

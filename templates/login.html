@@ -1,6 +1,7 @@
 {% extends 'SearchHeader.html'%}
 {% block body %}
     <h1>Login Page</h1>
+    <p id="loginError">{{ errormsg }}</p>
     <form id="loginForm" name="loginForm" method="post" action="{{ url_for('loginRoute') }}">
         <label for="loginUser">Username: </label>
         <input type="text" id="loginUser" name="loginUser"/>
