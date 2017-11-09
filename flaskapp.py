@@ -170,7 +170,7 @@ def searchresults():
                 info = Results.getStarWarsList(search_word)
                 test = info[0]
                 if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
+                    error = "STARWARS API: Nothing found! Try searching again."
                     if not words:
                         wikierror = "There are no matches. Search again"
                         return render_template("allresults.html", error=error, person="", results=list, picture=picture,
@@ -252,7 +252,7 @@ def searchresults():
                 info = Results.getStarWarsList(search_word)
                 test = info[0]
                 if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
+                    error = "STARWARS API: Nothing found! Try searching again."
                     if not words:
                         wikierror = "There are no matches. Search again"
                         return render_template("allresults.html", error=error, person="", results=list, picture=picture,
