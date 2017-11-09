@@ -116,10 +116,15 @@ def searchresults():
                 # For Wikipedia
                 info = []
                 words = Results.getWikipediaList(search_word)
-                for w in words:
-                    info.append(Results.getWikiInfo(w))
-                return render_template("results.html", results=info, checked=value, searched_word=search_word,
-                                       logState=logState)
+                if not words:
+                    error = "There are no matches. Search again"
+                    return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                           logState=logState, words=error)
+                else:
+                    for w in words:
+                        info.append(Results.getWikiInfo(w))
+                    return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                           logState=logState)
 
             # STARWARS API
             elif value == 'sw':
@@ -133,7 +138,7 @@ def searchresults():
                 test = "NA"
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
-                    return render_template("starwars.html", error=error, person="", checked=value,
+                    return render_template("swerror.html", error=error, checked=value,
                                            searched_word=search_word)
                 else:
                     return render_template("starwars.html", person=info, error="", checked=value,
@@ -148,13 +153,15 @@ def searchresults():
                                        logState=logState)
 
 
-
             # ALL APIS
             elif value == 'all':
                 list = []
                 words = Results.getWikipediaList(search_word)
                 for w in words:
                     list.append(Results.getWikiInfo(w))
+
+
+
 
                 pictures = Results.getPicture(search_word)
                 picture = pictures[0]
@@ -164,11 +171,22 @@ def searchresults():
                 test = info[0]
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
-                    return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                    if not words:
+                        wikierror = "There are no matches. Search again"
+                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                               checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
+                    else:
+                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
                 else:
-                    return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                    if not words:
+                        wikierror = "There are no matches. Search again"
+                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
+                    else:
+                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
+
         else:
             logState = False
             message = "you are not logged in"
@@ -178,12 +196,17 @@ def searchresults():
                 # For Wikipedia
                 info = []
                 words = Results.getWikipediaList(search_word)
-                for w in words:
-                    info.append(Results.getWikiInfo(w))
-                return render_template("results.html", results=info, checked=value, searched_word=search_word,
-                                       logState=logState)
+                if not words:
+                    error = "There are no matches. Search again"
+                    return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                           logState=logState, words=error)
+                else:
+                    for w in words:
+                        info.append(Results.getWikiInfo(w))
+                    return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                           logState=logState)
 
-            # STARWARS API
+            #STARWARS API
             elif value == 'sw':
                 try:
                     info = Results.getStarWarsList(search_word)
@@ -195,12 +218,13 @@ def searchresults():
                 test = "NA"
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
-                    return render_template("starwars.html", error=error, person="", checked=value,
+                    return render_template("swerror.html", error=error, checked=value,
                                            searched_word=search_word)
                 else:
                     return render_template("starwars.html", person=info, error="", checked=value,
                                            searched_word=search_word,
                                            logState=logState)
+
 
 
             # IMAGE API
@@ -218,6 +242,9 @@ def searchresults():
                 for w in words:
                     list.append(Results.getWikiInfo(w))
 
+
+
+
                 pictures = Results.getPicture(search_word)
                 picture = pictures[0]
                 # picture = ["one","two", "three"]
@@ -226,10 +253,20 @@ def searchresults():
                 test = info[0]
                 if test == 'NA':
                     error = "There are no results for that search. Please try searching again"
-                    return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                    if not words:
+                        wikierror = "There are no matches. Search again"
+                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                               checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
+                    else:
+                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
                 else:
-                    return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                    if not words:
+                        wikierror = "There are no matches. Search again"
+                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
+                    else:
+                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
 
 

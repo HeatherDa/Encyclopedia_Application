@@ -1,0 +1,27 @@
+{% extends 'SearchHeader.html'%}
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/starwars.css') }}">
+    </head>
+
+
+    <form>
+        <table class = "sturdy">
+            <td></td>
+            <td>
+                <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">STARWARS API</h6>
+                <section style="text-align: center">
+                    {{ error }}
+                </section>
+            </td>
+            <td></td>
+        </table>
+    </form>
+
+    <script>
+    window.onload= function () {
+        document.getElementById("ng-ngh").style.display = "none";
+    }
+    </script>
+
+{% endblock %}

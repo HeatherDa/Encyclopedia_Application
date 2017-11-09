@@ -9,6 +9,7 @@ def getKey():
        file.close()
        return key
 
+
 #ImageSearch class that returns the first image link found depending on query
 class ImageSearch:
     def __init__(self):

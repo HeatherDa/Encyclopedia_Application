@@ -23,9 +23,15 @@
                     </table>
                     </section>
 
-                    <section style="text-align: center">
+
+
+
+                    <section class="starwars" style="text-align: center">
+                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">STARWARS API</h6>
                         {{ error }}
                     </section>
+
+
                     <div id="info" class="starwars">
                         <div id="info2">
                             <p></p>
@@ -53,6 +59,7 @@
                         <p></p>
                         <h6 style="text-align: center; font-family: 'Hoefler Text Regular'; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">WIKIPEDIA API</h6>
                         <p></p>
+                        <div style="text-align: center">{{ wikierror }}</div>
                         <ul  style="list-style-type:none">
                         {% for word in results %}
                         <li><h6 style="font-family: 'Hoefler Text Regular'; font-size: 25px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;"><a href= {{ word[1]}}>{{ word[0] }}</a></h6></li>

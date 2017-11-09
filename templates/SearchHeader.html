@@ -3,8 +3,9 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/SearchHeader.css') }}">
     </head>
-    <form action = "{{url_for('searchresults')}}" method = "POST">
+
         <div class="topnav" id="myTopnav">
+    <form action = "{{url_for('searchresults')}}" method = "POST">
 
             {% if logState %}
                 <!-- if true then-->
@@ -27,8 +28,8 @@
                    </div>
 
               </div>
+        </form>
         </div>
-    </form>
     <aside></aside>
     {%  block body %}{% endblock %}
     <aside></aside>6
