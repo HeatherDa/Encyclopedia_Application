@@ -66,10 +66,11 @@ def logout():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    session.pop('username', None)
     # Creates an instance of database.
     # with app.app_context():
     #     cur = get_db().cursor()
-    return render_template("signup.html")
+    return render_template("homestyle.html")
 
 @app.route('/homestyle', methods=['GET', 'POST'])
 def home(logState):
@@ -96,73 +97,141 @@ def home(logState):
 def searchresults():
     words = []
     info = []
-    # I think this is how to get the current logged in user - requires further testing
 
-    currentuser = session['username']
-
-    logState = True
-
-    print("debug: cur user is " + currentuser)
     if request.method == 'POST':
+
         search_word = request.form['search']
-
-        new_search = Models.Search(search_word, currentuser)
-        Models.db.session.add(new_search)
-        Models.db.session.commit()
-
         value = request.form['options']
 
-        #WIKI API
-        if value == 'wiki':
-            # For Wikipedia
-            info = []
-            words = Results.getWikipediaList(search_word)
-            for w in words:
-                info.append(Results.getWikiInfo(w))
-            return render_template("results.html", results=info, checked = value, searched_word = search_word, logState = logState)
+        if 'username' in session:
+            message = "you are logged in"
+            currentuser = session['username']
+            logState = True
+            new_search = Models.Search(search_word, currentuser)
+            Models.db.session.add(new_search)
+            Models.db.session.commit()
 
-        #STARWARS API
-        elif value == 'sw':
-            try:
+            # WIKI API
+            if value == 'wiki':
+                # For Wikipedia
+                info = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    info.append(Results.getWikiInfo(w))
+                return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                       logState=logState)
+
+            # STARWARS API
+            elif value == 'sw':
+                try:
+                    info = Results.getStarWarsList(search_word)
+                    # info = ["test", "test"]
+                except:
+                    return "too many requests using the StarWarsAPI! Try using something else."
+                test = info[0]
+
+                test = "NA"
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("starwars.html", error=error, person="", checked=value,
+                                           searched_word=search_word)
+                else:
+                    return render_template("starwars.html", person=info, error="", checked=value,
+                                           searched_word=search_word,
+                                           logState=logState)
+
+
+            # IMAGE API
+            elif value == 'pic':
+                pictures = Results.getPicture(search_word)
+                return render_template("picture.html", pictures=pictures, checked=value, searched_word=search_word,
+                                       logState=logState)
+
+
+
+            # ALL APIS
+            elif value == 'all':
+                list = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    list.append(Results.getWikiInfo(w))
+
+                pictures = Results.getPicture(search_word)
+                picture = pictures[0]
+                # picture = ["one","two", "three"]
+
                 info = Results.getStarWarsList(search_word)
-                #info = ["test", "test"]
-            except:
-                return "too many requests using the StarWarsAPI! Try using something else."
-            test = info[0]
+                test = info[0]
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState)
+                else:
+                    return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState)
+        else:
+            logState = False
+            message = "you are not logged in"
 
-            test = "NA"
-            if test == 'NA':
-                error = "There are no results for that search. Please try searching again"
-                return render_template("starwars.html", error=error, person="", checked = value, searched_word = search_word)
-            else:
-                return render_template("starwars.html", person=info, error="", checked = value, searched_word = search_word, logState=logState)
+            # WIKI API
+            if value == 'wiki':
+                # For Wikipedia
+                info = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    info.append(Results.getWikiInfo(w))
+                return render_template("results.html", results=info, checked=value, searched_word=search_word,
+                                       logState=logState)
+
+            # STARWARS API
+            elif value == 'sw':
+                try:
+                    info = Results.getStarWarsList(search_word)
+                    # info = ["test", "test"]
+                except:
+                    return "too many requests using the StarWarsAPI! Try using something else."
+                test = info[0]
+
+                test = "NA"
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("starwars.html", error=error, person="", checked=value,
+                                           searched_word=search_word)
+                else:
+                    return render_template("starwars.html", person=info, error="", checked=value,
+                                           searched_word=search_word,
+                                           logState=logState)
 
 
-        #IMAGE API
-        elif value == 'pic':
-            pictures = Results.getPicture(search_word)
-            return render_template("picture.html", pictures = pictures, checked = value, searched_word = search_word, logState=logState)
+            # IMAGE API
+            elif value == 'pic':
+                pictures = Results.getPicture(search_word)
+                return render_template("picture.html", pictures=pictures, checked=value, searched_word=search_word,
+                                       logState=logState)
 
 
 
-        #ALL APIS
-        elif value == 'all':
-            list = []
-            words = Results.getWikipediaList(search_word)
-            for w in words:
-                list.append(Results.getWikiInfo(w))
+            # ALL APIS
+            elif value == 'all':
+                list = []
+                words = Results.getWikipediaList(search_word)
+                for w in words:
+                    list.append(Results.getWikiInfo(w))
 
-            pictures = Results.getPicture(search_word)
-            picture = pictures[0]
-            #picture = ["one","two", "three"]
+                pictures = Results.getPicture(search_word)
+                picture = pictures[0]
+                # picture = ["one","two", "three"]
 
-            info = Results.getStarWarsList(search_word)
-            test = info[0]
-            if test == 'NA':
-                error = "There are no results for that search. Please try searching again"
-                return render_template("allresults.html", error=error, person="", results=list, picture=picture, checked = value, searched_word = search_word, logState=logState)
-            else:
-                return render_template("allresults.html", person=info, error="", results=list, picture=picture, checked = value, searched_word = search_word, logState=logState)
+                info = Results.getStarWarsList(search_word)
+                test = info[0]
+                if test == 'NA':
+                    error = "There are no results for that search. Please try searching again"
+                    return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState)
+                else:
+                    return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
