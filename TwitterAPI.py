@@ -6,6 +6,7 @@ def getKeys():
     consumerSecret = file.readline().rstrip("\n")
     accessToken = file.readline().rstrip("\n")
     accessTokenSecret = file.readline().rstrip("\n")
+    file.close()
     return consumerKey,consumerSecret,accessToken,accessTokenSecret
 
 class TwitterAPI():
