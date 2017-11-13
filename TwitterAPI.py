@@ -12,13 +12,15 @@ def getKeys():
 class TwitterAPI():
     #initiaing information for the twitter api
     def __init__(self):
-        self.users = []
+
 
         self.consumerKey,self.consumerSecret,self.accessToken,self.accessTokenSecret = getKeys()
 
         auth = tweepy.OAuthHandler(self.consumerKey, self.consumerSecret)
         auth.set_access_token(self.accessToken,self.accessTokenSecret)
         self.api = tweepy.API(auth)
+
+
     #call this method with a query for results
     #the method returns a list within a list
     #Example list[USER][USER_INFO]
@@ -27,16 +29,17 @@ class TwitterAPI():
     # 0= name , 1 = screen_name, 2 = creation date, 3 = tweet
     def getTweets(self,query):
         tweets = self.api.search(q=query,count = 10,show_user = True,include_entities=True)
-
+        users = []
         for tweet in tweets:
+
             user = []
             user.append(tweet.user.name)
             user.append(tweet.user.screen_name)
             user.append(tweet.created_at)
             user.append(tweet.text)
-            self.users.append(user)
+            users.append(user)
 
-        return self.users
+        return users
 
 
 #EXAMPLE CODE
