@@ -23,6 +23,27 @@
                     </table>
                     </section>
 
+               {% if logState %}
+                    <section style="margin-left: 30px">
+                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">YOUTUBE API</h6>
+                        <table class="sturdy2">
+                            {{ uerror }}
+                            {% for video in videos %}
+                                <tr>
+                                    {% for v in video %}
+                                        <td>
+                                        <iframe width = "200" height="150" src="{{ v[1][0] }}"></iframe>
+                                        <h5 style="width: 200px; height: 100px; padding: 0px 0px 0px 0px;
+                                                margin: 0px 0px 0px 0px; overflow-wrap: break-word; text-align: left; font-family: 'Varela Round';">{{ v[0][0]}}</h5>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </section>
+
+               {% else %}
+            {% endif %}
 
                     <section class="starwars" style="text-align: center">
                         {{ error }}
@@ -82,46 +103,49 @@
 
     </script>
 
-<head>
-	<meta charset="UTF-8">
-	<title>Twitter</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/twitter.css') }}">
-   	<link href='https://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
-</head>
-<body>
 
-		<span class="first">
-			Twitter API
-		</span>
-		<ul class="timeline" style="list-style: none">
-            {% for tweet in tweetlist %}
-			<li>
-				<div class="avatar">
-					<div class="hover">
-						<div class="icon-twitter"></div>
-					</div>
-				</div>
-				<div class="bubble-container">
-					<div class="bubble">
-					<div class="retweet">
-						<div class="icon-retweet"></div>
-					</div>
-						<h3>{{ tweet[0] }}</h3>  <h3>@{{ tweet[1] }}</h3><br/>
-                        {{ terror}}
-                        {{ tweet[3] }}
-						<div class="over-bubble">
-						</div>
-					</div>
+    {% if logState %}
+        <head>
+            <meta charset="UTF-8">
+            <title>Twitter</title>
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/twitter.css') }}">
+            <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+        </head>
+        <body>
 
-					<div class="arrow"></div>
-				</div>
-			</li>
-            {% endfor %}
-		</ul>
+                <span class="first">
+                    Twitter API
+                </span>
+                <ul class="timeline" style="list-style: none">
+                    {% for tweet in tweetlist %}
+                    <li>
+                        <div class="avatar">
+                            <div class="hover">
+                                <div class="icon-twitter"></div>
+                            </div>
+                        </div>
+                        <div class="bubble-container">
+                            <div class="bubble">
+                            <div class="retweet">
+                                <div class="icon-retweet"></div>
+                            </div>
+                                <h3>{{ tweet[0] }}</h3>  <h3>@{{ tweet[1] }}</h3><br/>
+                                {{ terror}}
+                                {{ tweet[3] }}
+                                <div class="over-bubble">
+                                </div>
+                            </div>
 
-</body>
+                            <div class="arrow"></div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
 
+        </body>
+    {% else %}
+    {% endif %}
 
 
 

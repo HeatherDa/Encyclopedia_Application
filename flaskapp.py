@@ -8,6 +8,7 @@ from flask_login import login_user, logout_user, LoginManager, login_required, c
 
 # loggedIn = False
 import TwitterAPI
+import YoutubeAPI
 
 app = Flask(__name__)
 
@@ -136,7 +137,8 @@ def searchresults():
                     if test == 'NA':
                         error = "There are no results for that search. Please try searching again"
                         return render_template("swerror.html", error=error, checked=value,
-                                               searched_word=search_word)
+                                               searched_word=search_word,
+                                               logState=logState)
                     else:
                         return render_template("starwars.html", person=info, error="", checked=value,
                                                searched_word=search_word,
@@ -161,6 +163,18 @@ def searchresults():
                     return render_template("twitter.html", checked=value, searched_word=search_word,
                                            tweetlist=tweet_list,
                                            logState=logState)
+            # YouTUBE API
+            elif value == 'youtube':
+                videos = YoutubeAPI.youtube_search(search_word)
+                if not videos:
+                    uerror = "No videos found. Try searching something else"
+                    return render_template("youtube.html", uerror=uerror, checked=value,
+                                               searched_word=search_word,
+                                               logState=logState)
+                else:
+                    return render_template("youtube.html", videos=videos, checked=value,
+                                               searched_word=search_word,
+                                               logState=logState)
 
 
             # ALL APIS
@@ -183,6 +197,9 @@ def searchresults():
                 tweets = TwitterAPI.TwitterAPI()
                 tweet_list = tweets.getTweets(search_word)
 
+                videos = YoutubeAPI.youtube_search(search_word)
+
+
                 #checks if starwars api is empty
                 #if its then
                 if test == 'NA':
@@ -195,25 +212,53 @@ def searchresults():
                         #if it check if twitter is empty
                         if not tweet_list:
                             terror = "Sorry there are no tweets. Try searching again"
-                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
-                                                   checked=value, searched_word=search_word, logState=logState,
-                                                   wikierror=wikierror, terror = terror )
+
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+                                return render_template("allresults.html", error=error, person="", results=list,
+                                                           picture=picture,
+                                                           checked=value, searched_word=search_word, logState=logState,
+                                                           wikierror=wikierror, terror=terror, uerror = uerror)
+                            else:
+                                return render_template("allresults.html", error=error, person="", results=list,
+                                                           picture=picture,
+                                                           checked=value, searched_word=search_word, logState=logState,
+                                                           wikierror=wikierror, terror=terror, videos = videos)
+
                         else:
-                            return render_template("allresults.html", person=info, error="", results=list,
-                                                   picture=picture,
-                                                   checked=value, searched_word=search_word, logState=logState,
-                                                   tweetlist=tweet_list[:3])
-                    #if wiki isnt empty
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                       picture=picture,
+                                                       checked=value, searched_word=search_word, logState=logState,
+                                                       tweetlist=tweet_list[:3], uerror = uerror)
+                            else:
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                       picture=picture,
+                                                       checked=value, searched_word=search_word, logState=logState,
+                                                       tweetlist=tweet_list[:3], videos = videos)
+                        #if wiki isnt empty
                     else:
                         if not tweet_list:
                             terror = "Sorry there are no tweets. Try searching again"
-                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState, terror = terror)
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+                                return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, terror = terror, uerror = uerror)
+                            else:
+                                return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, terror = terror, videos = videos)
                         else:
-                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState, tweetlist=tweet_list[:3])
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
 
-
+                                return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, tweetlist=tweet_list[:3], uerror = uerror)
+                            else:
+                                return render_template("allresults.html", error=error, person="", results=list,
+                                                       picture=picture,
+                                                       checked=value, searched_word=search_word, logState=logState,
+                                                       tweetlist=tweet_list[:3], videos=videos)
 
                 #if starwars is not empty
                 else:
@@ -223,27 +268,57 @@ def searchresults():
 
                         if not tweet_list:
                             terror = "Sorry there are no tweets. Try searching again"
-                            return render_template("allresults.html", person=info, error="", results=list,
-                                                   picture=picture,
-                                                   checked=value, searched_word=search_word, logState=logState,
-                                                   wikierror=wikierror, terror = terror)
-                        else:
-                            return render_template("allresults.html", person=info, error="", results=list,
-                                                   picture=picture,
-                                                   checked=value, searched_word=search_word, logState=logState,
-                                                   tweetlist=tweet_list[:3])
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
 
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   wikierror=wikierror, terror = terror, uerror = uerror)
+                            else:
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   wikierror=wikierror, terror = terror, videos = videos)
+                        else:
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   tweetlist=tweet_list[:3], uerror = uerror)
+                            else:
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   tweetlist=tweet_list[:3], videos = videos)
 
                     else:
                         if not tweet_list:
                             terror = "Sorry there are no tweets. Try searching again"
-                            return render_template("allresults.html", person=info, error="", results=list,
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+                                return render_template("allresults.html", person=info, error="", results=list,
                                                    picture=picture,
                                                    checked=value, searched_word=search_word, logState=logState,
-                                                   terror = terror)
+                                                   terror = terror, uerorr = uerror)
+                            else:
+
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   terror = terror, videos = videos)
                         else:
-                            return render_template("allresults.html", person=info, error="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState, tweetlist = tweet_list[:3])
+                            if not videos:
+                                uerror = "No videos found. Try searching something else"
+
+                                return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, tweetlist = tweet_list[:3], uerror =uerror)
+                            else:
+                                return render_template("allresults.html", person=info, error="", results=list,
+                                                       picture=picture,
+                                                       checked=value, searched_word=search_word, logState=logState,
+                                                       tweetlist=tweet_list[:3], videos=videos)
 
 
 
@@ -294,15 +369,15 @@ def searchresults():
 
 
 
-            # ALL APIS
+
+
+
+            #ALL APIS
             elif value == 'all':
                 list = []
                 words = Results.getWikipediaList(search_word)
                 for w in words:
                     list.append(Results.getWikiInfo(w))
-
-
-
 
                 pictures = Results.getPicture(search_word)
                 picture = pictures[0]
@@ -327,12 +402,6 @@ def searchresults():
                     else:
                         return render_template("allresults.html", person=info, error="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
-
-
-
-
-
-
 
 
 

@@ -7,17 +7,58 @@ def getKey():
     key = file.readline()
     file.close()
     return key
-class YouTubeSearch:
-    def __init__(self):
-              self.key = getKey()
-        #the actual function to call for an image link, with a query
-    def newVideo(self,query):
-            formatedURL = "https://www.googleapis.com/customsearch/v1?key={0}" \
-                     "&cx=017800523099077225978:er15x8rnv_i&q={1}&searchT" \
-                     "ype=image&fileType=jpg&imgSize=medium&alt=json".format(self.key,query)
 
-            request = requests.get(formatedURL)
-            json_data = json.loads(request.content)
-            print(json_data)
+import argparse
+from googleapiclient.discovery import build
 
-#GET https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=dog&key={YOUR_API_KEY}
+
+# Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
+# tab of
+#   https://cloud.google.com/console
+# Please ensure that you have enabled the YouTube Data API for your project.
+DEVELOPER_KEY = getKey()
+YOUTUBE_API_SERVICE_NAME = 'youtube'
+YOUTUBE_API_VERSION = 'v3'
+
+def youtube_search(options):
+  youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+    developerKey=DEVELOPER_KEY)
+
+  # Call the search.list method to retrieve results matching the specified
+  # query term.
+  search_response = youtube.search().list(
+    q=options,
+    part='id,snippet',
+  ).execute()
+
+  videos = []
+  vids = []
+  # Add each result to the appropriate list, and then display the lists of
+  # matching videos, channels, and playlists.
+  for search_result in search_response.get('items', []):
+      if search_result['id']['kind'] == 'youtube#video':
+        #videos.append(([search_result['snippet']['title']],[search_result['id']['videoId']]))
+        title = [str(search_result['snippet']['title'])]
+        id = ["https://www.youtube.com/embed/" + str(search_result['id']['videoId'])]
+        video = []
+        video.append(title)
+        video.append(id)
+        videos.append(video)
+  composite_list = [videos[x:x + 3] for x in range(0, len(videos), 3)]
+  return (composite_list)
+
+
+  #return (vids)
+
+#if __name__ == '__main__':
+#    try:
+#        videos = youtube_search("sexdfcgvhbjnkml")
+#        print(videos)
+#        composite_list = [videos[x:x + 3] for x in range(0, len(videos), 3)]
+#        print(composite_list)
+#        for i in composite_list:
+#            print(i)
+
+#    except Exception as e:
+#        print(e)
+
