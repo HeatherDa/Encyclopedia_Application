@@ -2,8 +2,8 @@
 {% block body %}
 <head>
 	<meta charset="UTF-8">
-	<title>Twitter Client</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}">
+	<title>Twitter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/twitter.css') }}">
    	<link href='https://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 </head>
@@ -13,7 +13,6 @@
 			Twitter API
 		</span>
 		<ul class="timeline" style="list-style: none">
-
             {% for tweet in tweetlist %}
 			<li>
 				<div class="avatar">
@@ -29,9 +28,6 @@
 						<h3>{{ tweet[0] }}</h3>  <h3>@{{ tweet[1] }}</h3><br/>
                         {{ tweet[3] }}
 						<div class="over-bubble">
-							<div class="icon-mail-reply action"></div>
-							<div class="icon-retweet action"></div>
-							<div class="icon-star"></div>
 						</div>
 					</div>
 
@@ -40,6 +36,5 @@
 			</li>
             {% endfor %}
 		</ul>
-
 </body>
 {% endblock %}

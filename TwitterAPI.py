@@ -44,8 +44,11 @@ class TwitterAPI():
 
 #EXAMPLE CODE
 #api = TwitterAPI()
-#users = api.getTweets("potatoes")
+#users = api.getTweets("hello")
 #prints the second user's tweet
 #print(users[1][3])
+#print(users[:3])
+#if not users:
+#    print("empty")
 #prints the creation date of the first user's tweet
 #print(users[0][2])

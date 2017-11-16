@@ -7,6 +7,8 @@ import Models
 from flask_login import login_user, logout_user, LoginManager, login_required, current_user
 
 # loggedIn = False
+import TwitterAPI
+
 app = Flask(__name__)
 
 # secret key & sqlalchemy database link
@@ -130,20 +132,17 @@ def searchresults():
             elif value == 'sw':
                 try:
                     info = Results.getStarWarsList(search_word)
-                    # info = ["test", "test"]
+                    test = info[0]
+                    if test == 'NA':
+                        error = "There are no results for that search. Please try searching again"
+                        return render_template("swerror.html", error=error, checked=value,
+                                               searched_word=search_word)
+                    else:
+                        return render_template("starwars.html", person=info, error="", checked=value,
+                                               searched_word=search_word,
+                                               logState=logState)
                 except:
                     return "too many requests using the StarWarsAPI! Try using something else."
-                test = info[0]
-
-                test = "NA"
-                if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
-                    return render_template("swerror.html", error=error, checked=value,
-                                           searched_word=search_word)
-                else:
-                    return render_template("starwars.html", person=info, error="", checked=value,
-                                           searched_word=search_word,
-                                           logState=logState)
 
 
             # IMAGE API
@@ -151,6 +150,17 @@ def searchresults():
                 pictures = Results.getPicture(search_word)
                 return render_template("picture.html", pictures=pictures, checked=value, searched_word=search_word,
                                        logState=logState)
+
+            # Twitter API
+            elif value == 'twit':
+                tweets = TwitterAPI.TwitterAPI()
+                tweet_list = tweets.getTweets(search_word)
+                if not tweet_list:
+                    return render_template("twitterError.html")
+                else:
+                    return render_template("twitter.html", checked=value, searched_word=search_word,
+                                           tweetlist=tweet_list,
+                                           logState=logState)
 
 
             # ALL APIS
@@ -162,31 +172,83 @@ def searchresults():
 
 
 
-
                 pictures = Results.getPicture(search_word)
                 picture = pictures[0]
                 # picture = ["one","two", "three"]
 
                 info = Results.getStarWarsList(search_word)
                 test = info[0]
+
+
+                tweets = TwitterAPI.TwitterAPI()
+                tweet_list = tweets.getTweets(search_word)
+
+                #checks if starwars api is empty
+                #if its then
                 if test == 'NA':
                     error = "STARWARS API: Nothing found! Try searching again."
+                    #check if wikipedia is empty
+                    #if wiki is empty
                     if not words:
                         wikierror = "There are no matches. Search again"
-                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
-                                               checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
-                    else:
-                        return render_template("allresults.html", error=error, person="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState)
-                else:
-                    if not words:
-                        wikierror = "There are no matches. Search again"
-                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState, wikierror = wikierror)
-                    else:
-                        return render_template("allresults.html", person=info, error="", results=list, picture=picture,
-                                           checked=value, searched_word=search_word, logState=logState)
 
+                        #if it check if twitter is empty
+                        if not tweet_list:
+                            terror = "Sorry there are no tweets. Try searching again"
+                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   wikierror=wikierror, terror = terror )
+                        else:
+                            return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   tweetlist=tweet_list[:3])
+                    #if wiki isnt empty
+                    else:
+                        if not tweet_list:
+                            terror = "Sorry there are no tweets. Try searching again"
+                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, terror = terror)
+                        else:
+                            return render_template("allresults.html", error=error, person="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, tweetlist=tweet_list[:3])
+
+
+
+                #if starwars is not empty
+                else:
+                    #check wikipedia
+                    if not words:
+                        wikierror = "There are no matches. Search again"
+
+                        if not tweet_list:
+                            terror = "Sorry there are no tweets. Try searching again"
+                            return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   wikierror=wikierror, terror = terror)
+                        else:
+                            return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   tweetlist=tweet_list[:3])
+
+
+                    else:
+                        if not tweet_list:
+                            terror = "Sorry there are no tweets. Try searching again"
+                            return render_template("allresults.html", person=info, error="", results=list,
+                                                   picture=picture,
+                                                   checked=value, searched_word=search_word, logState=logState,
+                                                   terror = terror)
+                        else:
+                            return render_template("allresults.html", person=info, error="", results=list, picture=picture,
+                                           checked=value, searched_word=search_word, logState=logState, tweetlist = tweet_list[:3])
+
+
+
+
+        #REGULAR USER
         else:
             logState = False
             message = "you are not logged in"
@@ -210,20 +272,17 @@ def searchresults():
             elif value == 'sw':
                 try:
                     info = Results.getStarWarsList(search_word)
-                    # info = ["test", "test"]
+                    test = info[0]
+                    if test == 'NA':
+                        error = "There are no results for that search. Please try searching again"
+                        return render_template("swerror.html", error=error, checked=value,
+                                               searched_word=search_word)
+                    else:
+                        return render_template("starwars.html", person=info, error="", checked=value,
+                                               searched_word=search_word,
+                                               logState=logState)
                 except:
                     return "too many requests using the StarWarsAPI! Try using something else."
-                test = info[0]
-
-                test = "NA"
-                if test == 'NA':
-                    error = "There are no results for that search. Please try searching again"
-                    return render_template("swerror.html", error=error, checked=value,
-                                           searched_word=search_word)
-                else:
-                    return render_template("starwars.html", person=info, error="", checked=value,
-                                           searched_word=search_word,
-                                           logState=logState)
 
 
 
@@ -268,6 +327,12 @@ def searchresults():
                     else:
                         return render_template("allresults.html", person=info, error="", results=list, picture=picture,
                                            checked=value, searched_word=search_word, logState=logState)
+
+
+
+
+
+
 
 
 

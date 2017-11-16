@@ -34,10 +34,18 @@
 
               <button type="submit" class="searchButton" value="Search">Search</button>
            <br>
-               <input type="radio" name="options" value="wiki"/>Wikipedia
-               <input type="radio" name="options" value="sw" />Starwars
-               <input type="radio" name="options" value="pic"/>Pictures
-               <input type="radio" name="options" value="all" checked/>All
+               {% if logState %}
+                   <input type="radio" name="options" value="wiki"/>Wikipedia
+                   <input type="radio" name="options" value="sw" />Starwars
+                   <input type="radio" name="options" value="pic"/>Pictures
+                   <input type="radio" name="options" value="twit"/>Twitter
+                   <input type="radio" name="options" value="all" checked/>All
+               {% else %}
+                   <input type="radio" name="options" value="wiki"/>Wikipedia
+                   <input type="radio" name="options" value="sw" />Starwars
+                   <input type="radio" name="options" value="pic"/>Pictures
+                   <input type="radio" name="options" value="all" checked/>All
+               {% endif %}
           </div>
 
         </div>
