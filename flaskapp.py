@@ -199,7 +199,6 @@ def searchresults():
 
                 videos = YoutubeAPI.youtube_search(search_word)
 
-
                 #checks if starwars api is empty
                 #if its then
                 if test == 'NA':

@@ -9,23 +9,20 @@
         <table class = "sturdy">
              <td></td>
             <td>
-
-
-
-                    <section style="margin-left: 30px">
+                <section style="margin-left: 30px">
                     <table class="sturdy2">
-                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">IMAGE API</h6>
+                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-family:'Times New Roman';">IMAGE API</h6>
                            <tr>
                                {% for p in picture %}
                                    <td><a href="{{ p }}"><img style="width: 170px; height: 155px" src={{p}}></a></td>
                                {% endfor %}
                            </tr>
                     </table>
-                    </section>
+                </section>
 
                {% if logState %}
                     <section style="margin-left: 30px">
-                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">YOUTUBE API</h6>
+                        <h6 style="text-align: center; font-size: 30px; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-family: 'Arial Rounded MT Bold'">YOUTUBE API</h6>
                         <table class="sturdy2">
                             {{ uerror }}
                             {% for video in videos %}
@@ -34,7 +31,7 @@
                                         <td>
                                         <iframe width = "200" height="150" src="{{ v[1][0] }}"></iframe>
                                         <h5 style="width: 200px; height: 100px; padding: 0px 0px 0px 0px;
-                                                margin: 0px 0px 0px 0px; overflow-wrap: break-word; text-align: left; font-family: 'Varela Round';">{{ v[0][0]}}</h5>
+                                                margin: 0px 0px 0px 0px; overflow-wrap: break-word; text-align: left; font-family: 'Arial Rounded MT Bold';">{{ v[0][0]}}</h5>
                                         </td>
                                     {% endfor %}
                                 </tr>
