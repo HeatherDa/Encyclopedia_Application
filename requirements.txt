@@ -20,7 +20,7 @@ pycparser==2.18
 requests==2.18.4
 six==1.11.0
 SQLAlchemy==1.1.14
-ujson==1.35
+ujson==5.2.0
 urllib3==1.22
 virtualenv==15.1.0
 visitor==0.1.3
